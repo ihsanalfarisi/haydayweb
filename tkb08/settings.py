@@ -15,6 +15,14 @@ from pathlib import Path
 import dj_database_url
 import os
 
+DATABASE_URL = 'postgres://wfyawspztkvphe:4868f8dff88dbf0ca5a4b8f4d29800d8a6086d5c91f464eff907022b1d5aba4d@ec2-3-229-11-55.compute-1.amazonaws.com:5432/d37plio4p6b2p3'
+ 
+DATABASES = {
+    'default': dj_database_url.config(),
+}
+DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
