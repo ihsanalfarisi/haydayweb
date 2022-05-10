@@ -28,6 +28,7 @@ Deployment:
   image: ruby:2.4
   stage: deploy
   before_script:
+    - gem install faraday -v 1.10.0
     - gem install dpl
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
   script:
