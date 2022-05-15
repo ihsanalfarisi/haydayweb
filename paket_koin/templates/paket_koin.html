@@ -21,11 +21,22 @@
           <tr>
             <th>Jumlah Koin</th>
             <th>Harga</th>
+            <th>Action</th>
           </tr>
           {% for paket in hasil %}
           <tr>
             <td> {{ paket.jumlah_koin }} </td>
             <td> {{ paket.harga }} </td>
+            <td> 
+              <div class = "row">
+                <div class = "col">
+                  <a class="btn btn-primary" href="#" role="button">Update</a>
+                </div>
+                <div class = "col">
+                  <a class="btn btn-primary" href="#" role="button">Delete</a>
+                </div>
+              </div>
+            </td>
           </tr>
           {% endfor %}
           <!-- END SECTION -->
