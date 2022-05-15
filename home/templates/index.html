@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'basedefault.html' %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +15,17 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1 class="pb-5">Selamat datang di HI-DAY</h1>
+    
+    <div class="d-flex justify-content-center">
+        <a href="/login" class="button" style="width: 140px;">
+            <button type="button" class="btn btn-outline-warning">Login</button>
+        </a>
+        <h4 style="width: 90px;">or</h4>
+        <a href="/register" class="button">
+            <button type="button" class="btn btn-outline-warning">Register</button>
+        </a>
+    </div>
 </body>
 </html>
 {% endblock content %}

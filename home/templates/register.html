@@ -1,0 +1,64 @@
+{% extends 'basedefault.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Login page</title>
+{% endblock meta %}
+
+{% block content %}
+<style>
+    .hero-container {
+        width: 100%;
+        align-items: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        
+    }
+    html {
+        background-color: #CFE4EC;
+;
+    }
+    button {
+        width: 462px;
+        height: 50px;
+        left: 200px;
+        top: 200px;
+
+        background: #4276B7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 70px;
+        border-style: none;
+    }
+
+    button h1 {
+        color: white;
+    }
+
+    form {
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="hero-container">
+    <div class="form-container">
+        <form method="POST">
+            {% csrf_token %}
+              <div class="mb-3">
+                <label for="input-email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="input-email" aria-describedby="help-input-email" name="email">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nama Area Pertanian</label>
+                <input type="text" class="form-control" name="nama_area">
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
