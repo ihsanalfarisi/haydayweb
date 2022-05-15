@@ -1,38 +1,61 @@
 {% extends 'base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-
 {% load static %}
 
 {% block meta %}
-<title>Log In</title>
+<title>Login page</title>
 {% endblock meta %}
+
 {% block content %}
+<style>
+    .hero-container {
+        width: 100%;
+        align-items: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        
+    }
+    html {
+        background-color: #CFE4EC;
+;
+    }
+    button {
+        width: 462px;
+        height: 50px;
+        left: 200px;
+        top: 200px;
 
-<body>
+        background: #4276B7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 70px;
+        border-style: none;
+    }
 
-    <div class="container"  style="padding: 50px">
-        <div class="d-flex justify-content-center mb-4">
-            <h1>Login Form</h1>
-        </div>
-        <form action="" method="POST" class="form-control" style="text-align:justify">
+    button h1 {
+        color: white;
+    }
+
+    form {
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+
+<div class="hero-container">
+    <div class="form-container">
+        <form method="POST">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="email">Email</label>
-                    <br>
-                    <input class="inputlogin" type="email" id="email" name="email" placeholder= "nama@email.com" required>
-                </div>
-                <div class="col-md-10">
-                    <label for="password">Password</label>
-                    <br>
-                    <input class="inputlogin" type="password" id="password" name="password" placeholder= "Write your password" required>
-                </div>
-            </div><br>
-            <button class="btn btn-primary" type="submit">Login</button>
+              <div class="mb-3">
+                <label for="input-email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="input-email" aria-describedby="help-input-email" name="email">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+              </div>
+              <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
-</body>
-</html>
-
+</div>
 {% endblock content %}
