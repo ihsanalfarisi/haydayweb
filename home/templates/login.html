@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block meta %}
+<title>Log In</title>
+{% endblock meta %}
+{% block content %}
+
+<body>
+
+    <div class="container"  style="padding: 50px">
+        <div class="d-flex justify-content-center mb-4">
+            <h1>Login Form</h1>
+        </div>
+        <form action="" method="POST" class="form-control" style="text-align:justify">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="email">Email</label>
+                    <br>
+                    <input class="inputlogin" type="email" id="email" name="email" placeholder= "nama@email.com" required>
+                </div>
+                <div class="col-md-10">
+                    <label for="password">Password</label>
+                    <br>
+                    <input class="inputlogin" type="password" id="password" name="password" placeholder= "Write your password" required>
+                </div>
+            </div><br>
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock content %}

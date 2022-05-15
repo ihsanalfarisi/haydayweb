@@ -51,7 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'home'
+    'home',
+    'paket_koin',
+
+    ##oren
+    'aset',
+    'koleksi_aset',
+    'transaksi_pembelian_aset'
 ]
 
 MIDDLEWARE = [
@@ -71,7 +77,9 @@ ROOT_URLCONF = 'tkb08.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,17 +98,21 @@ WSGI_APPLICATION = 'tkb08.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+### ADD THIS ###
+DATABASE_URL = 'postgres://wfyawspztkvphe:4868f8dff88dbf0ca5a4b8f4d29800d8a6086d5c91f464eff907022b1d5aba4d@ec2-3-229-11-55.compute-1.amazonaws.com:5432/d37plio4p6b2p3'
+
+### CHANGE THIS ###
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(),
 }
 
-# Add this line
-# If Using Heroku Environemnt, then Use Database Setting on Heroku
+### ADD THIS ###
+DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
+
 if PRODUCTION:
     DATABASES['default'] = dj_database_url.config()
+
 
 
 # Password validation
@@ -135,9 +147,18 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# This is the directory for storing `collectstatic` results.
+# This shouldn't be included in your Git repository.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# You can use this directory to store project-wide static files.
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Add this line
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Transaksi Pembelian Aset</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Transaksi Pembelian Aset</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email</th>
+            <th>Waktu</th>
+            <th>Jumlah</th>
+            <th>ID Aset</th>
+          </tr>
+          {% for transaksi in hasil %}
+          <tr>
+            <td> {{ transaksi.email }} </td>
+            <td> {{ transaksi.waktu }} </td>
+            <td> {{ transaksi.jumlah }} </td>
+            <td> {{ transaksi.id_aset }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+

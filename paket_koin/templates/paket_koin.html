@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Paket Koin</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Paket Koin</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Jumlah Koin</th>
+            <th>Harga</th>
+          </tr>
+          {% for paket in hasil %}
+          <tr>
+            <td> {{ paket.jumlah_koin }} </td>
+            <td> {{ paket.harga }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    {% block meta %} {% endblock meta %}
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button
+        class="navbar-toggler ms-3"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-brand navbar-left ms-5">
+        <ul class="navbar-nav ms-auto my-2">
+          <li class="nav-item">
+            <a class="nav-link me-5 ms-3" href="/"> B08 HI-DAY </a>
+          </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto my-2">
+          <li class="nav-item">
+            <a class="nav-link me-3 ms-3" href="/"> Home </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Lumbung
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Lihat Isi Lumbung</a></li>
+              <li><a class="dropdown-item" href="#">Lihat Transaksi Upgrade Lumbung</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3 mr-1"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Koin
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Buat Paket Koin</a></li>
+              <li><a class="dropdown-item" href="/paket-koin">List Paket Koin</a></li>
+              <li><a class="dropdown-item" href="#">List Transaksi Pembelian Koin</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3 mr-1"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Aset
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Buat Aset</a></li>
+              <li><a class="dropdown-item" href="/aset">List Aset</a></li>
+              <li><a class="dropdown-item" href="#">Buat Hewan Menghasilkan Produk Hewan</a></li>
+              <li><a class="dropdown-item" href="#">List Hewan Menghasilkan Produk Hewan</a></li>
+              <li><a class="dropdown-item" href="#">Buat Bibit Menghasilkan Panen</a></li>
+              <li><a class="dropdown-item" href="#">List Bibit Menghasilkan Panen</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Koleksi Aset
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/koleksi-aset">List Koleksi Aset</a></li>
+              <li><a class="dropdown-item" href="/transaksi-pembelian-aset">List Transaksi Pembelian Aset</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Produk
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Buat Produk</a></li>
+              <li><a class="dropdown-item" href="#">List Produk</a></li>
+              <li><a class="dropdown-item" href="#">Buat Produksi</a></li>
+              <li><a class="dropdown-item" href="#">List Produksi</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Histori Produksi
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">List Histori Produksi Hewan</a></li>
+              <li><a class="dropdown-item" href="#">List Histori Produksi Tanaman</a></li>
+              <li><a class="dropdown-item" href="#">List Histori Produksi Makanan</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-3 ms-3"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Pesanan
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Buat Pesanan</a></li>
+              <li><a class="dropdown-item" href="#">List Pesanan</a></li>
+              <li><a class="dropdown-item" href="#">List Histori Penjualan</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-3 ms-3" href="#"> Logout </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="mainbox container-fluid">
+    {% block content %}
+
+    {% endblock content %}
+    </div>
+    <div class="container mt-auto">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-muted">&copy; 2022 CHRONOS, TK BASDAT B08</p>
+
+        <ul class="nav col-me-4 justify-content-end">
+          <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+ 
+        </ul>
+      </footer>
+    </div>
+  </body>
+</html>
