@@ -67,6 +67,11 @@ INSTALLED_APPS = [
     'produk',
     'produksi',
     'histori_produksi_makanan',
+
+    #Biru
+    'histori_produksi_hewan',
+    'histori_penjualan',
+    'pesanan',
 ]
 
 MIDDLEWARE = [

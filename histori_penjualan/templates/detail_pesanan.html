@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Histori Penjualan</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Histori Penjualan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Subtotal</th>
+            <th>Jumlah Produksi</th>
+          </tr>
+          {% for detail_pesanan in hasil %}
+          <tr>
+            <td> {{ detail_pesanan.subtotal }} </td>
+            <td> {{ detail_pesanan.jumlah }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+

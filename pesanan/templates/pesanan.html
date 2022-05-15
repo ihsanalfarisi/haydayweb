@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pesanan</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Pesanan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>ID Pesanan</th>
+            <th>Jenis Pesanan</th>
+            <th>Nama Pesanan</th>
+            <th>Total Koin</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+          {% for pesanan in hasil %}
+          <tr>
+            <td> {{ pesanan.id }} </td>
+            <td> {{ pesanan.jenis }} </td>
+            <td> {{ pesanan.nama }} </td>
+            <td> {{ pesanan.total }} </td>
+            <td> {{ pesanan.status}} </td>
+            <td>
+                  <a href="/pesanan/detail-pesanan/{{pesanan.id}}">[Detail]</a>
+            </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+
