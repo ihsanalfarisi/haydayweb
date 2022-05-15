@@ -34,5 +34,9 @@ urlpatterns = [
     path('produk/', include('produk.urls')),
     path('produksi/', include('produksi.urls')),
     path('histori-produksi-makanan/', include('histori_produksi_makanan.urls')),
+    #Biru
+    path('histori-produksi-hewan/', include('histori_produksi_hewan.urls')),
+    path('histori-penjualan/', include('histori_penjualan.urls')),
+    path('pesanan/', include('pesanan.urls')),
 
 ] 

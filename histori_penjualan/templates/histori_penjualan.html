@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Histori Penjualan</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Histori Penjualan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email Pengguna</th>
+            <th>Waktu Penjualan</th>
+            <th>ID Pesanan</th>
+            <th>Koin Diperoleh</th>
+            <th>XP Diperoleh</th>
+            <th>Action</th>
+          </tr>
+          {% for histori_penjualan in hasil %}
+          <tr>
+            <td> {{ histori_penjualan.email }} </td>
+            <td> {{ histori_penjualan.waktu_penjualan }} </td>
+            <td> {{ histori_penjualan.id_pesanan }} </td>
+            <td> {{ histori_penjualan.koin }} </td>
+            <td> {{ histori_penjualan.xp }} </td>
+            <td>
+                  <!-- <input type="button" onclick="location.href='/detail-pesanan/';" value="[Detail]" /> -->
+                  <a class="btn btn-primary" href="/detail-pesanan/" role="button">Detail</a>
+                  <!-- <a type="button" class="btn btn-outline-danger" href="/detail_pesanan" onclick="return confirm('Anda yakin mau menghapus data ini?');">Delete</a> -->
+            </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+
