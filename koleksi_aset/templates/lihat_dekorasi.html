@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aset</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Aset Dekorasi</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>No</th>
+            <th>Email Pengguna</th>
+            <th>Nama Aset</th>
+            <th>Minimum Level</th>
+            <th>Harga Beli</th>
+            <th>Jumlah</th>
+          </tr>
+          {% for aset in hasil %}
+          <tr>
+            <td> {{ forloop.counter }} </th>
+            <td> {{ aset.id_aset }} </td>
+            <td> {{ aset.nama }} </td>
+            <td> {{ aset.minimum_level }} </td>
+            <td> {{ aset.harga_beli }} </td>
+            <td> {{ aset.harga_jual }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+
