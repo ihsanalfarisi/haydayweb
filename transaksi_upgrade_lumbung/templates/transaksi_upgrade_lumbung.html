@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Transaksi Upgrade Lumbung</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Transaksi Upgrade Lumbung</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email Pengguna</th>
+            <th>Waktu Upgrade</th>
+          </tr>
+          {% for transaksi in hasil %}
+          <tr>
+            <td> {{ transaksi.email }} </td>
+            <td> {{ transaksi.waktu }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+

@@ -21,8 +21,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    #hijau
     path('paket-koin/', include('paket_koin.urls')),
-    
+    path('transaksi-pembelian-koin/', include('transaksi_pembelian_koin.urls')),
+    path('transaksi-upgrade-lumbung/', include('transaksi_upgrade_lumbung.urls')),
+    path('histori-tanaman/', include('histori_tanaman.urls')),
     #oren
     path('aset/', include('aset.urls')),
     path('koleksi-aset/', include('koleksi_aset.urls')),
