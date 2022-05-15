@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Produksi</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Produksi</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>ID Alat Produksi</th>
+            <th>ID Produk Makanan</th>
+            <th>Durasi</th>
+            <th>Jumlah Unit Hasil</th>
+          </tr>
+          {% for paket in hasil %}
+          <tr>
+            <td> {{ paket.id_alat_produksi }} </td>
+            <td> {{ paket.id_produk_makanan }} </td>
+            <td> {{ paket.durasi }} </td>
+            <td> {{ paket.jumlah_unit_hasil }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}

@@ -61,7 +61,12 @@ INSTALLED_APPS = [
     ##oren
     'aset',
     'koleksi_aset',
-    'transaksi_pembelian_aset'
+    'transaksi_pembelian_aset',
+
+    #Ungu
+    'produk',
+    'produksi',
+    'histori_produksi_makanan',
 ]
 
 MIDDLEWARE = [

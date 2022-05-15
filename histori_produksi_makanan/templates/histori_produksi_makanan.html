@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Histori Produksi Makanan</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Histori Produksi Makanan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email</th>
+            <th>Waktu Awal</th>
+            <th>ID Alat Produksi</th>
+            <th>ID Produk Makanan</th>
+          </tr>
+          {% for paket in hasil %}
+          <tr>
+            <td> {{ paket.email }} </td>
+            <td> {{ paket.waktu_awal }} </td>
+            <td> {{ paket.id_alat_produksi }} </td>
+            <td> {{ paket.id_produk_makanan }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
