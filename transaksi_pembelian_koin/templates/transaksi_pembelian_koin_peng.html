@@ -1,0 +1,44 @@
+{% extends 'basepeng.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Transaksi Pembelian Koin</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Transaksi Pembelian Koin</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Waktu Pembelian</th>
+            <th>Jumlah</th>
+            <th>Cara Pembayaran</th>
+            <th>Paket Koin</th>
+            <th>Total Biaya</th>
+          </tr>
+          {% for koin in hasil %}
+          <tr>
+            <td> {{ koin.waktu }} </td>
+            <td> {{ koin.jumlah }} </td>
+            <td> {{ koin.cara_pembayaran }} </td>
+            <td> {{ koin.paket_koin }} </td>
+            <td> {{ koin.total_biaya }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+

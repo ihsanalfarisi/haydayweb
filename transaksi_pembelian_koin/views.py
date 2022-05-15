@@ -1,3 +1,4 @@
+import email
 from django.shortcuts import render
 
 # Create your views here.
@@ -11,11 +12,24 @@ def tuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 def read(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select * from transaksi_pembelian_koin;""")
-        hasil = tuplefetchall(c)
-    
-    response = {'hasil': hasil,}
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select * from transaksi_pembelian_koin;""")
+            hasil = tuplefetchall(c)
+        
+        response = {'hasil': hasil,}
 
-    return render(request, 'transaksi_pembelian_koin.html', response)
+        return render(request, 'transaksi_pembelian_koin.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("select * from transaksi_pembelian_koin where email = '{}';".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+        
+        response = {'hasil': hasil,}
+
+        return render(request, 'transaksi_pembelian_koin_peng.html', response)
+
+def create(request):
+    return render(request, 'create_transaksi_pembelian_koin.html', {})

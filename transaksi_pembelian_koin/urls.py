@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     path('', views.read, name='transaksi_pembelian_koin'),
+    path('create', views.create),
 ]

@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     path('', views.read, name='paket_koin'),
+    path('create', views.create),
 ]
