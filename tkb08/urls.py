@@ -29,5 +29,10 @@ urlpatterns = [
     #oren
     path('aset/', include('aset.urls')),
     path('koleksi-aset/', include('koleksi_aset.urls')),
-    path('transaksi-pembelian-aset/', include('transaksi_pembelian_aset.urls'))
+    path('transaksi-pembelian-aset/', include('transaksi_pembelian_aset.urls')),
+    #Ungu
+    path('produk/', include('produk.urls')),
+    path('produksi/', include('produksi.urls')),
+    path('histori-produksi-makanan/', include('histori_produksi_makanan.urls')),
+
 ] 

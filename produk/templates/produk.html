@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Produk</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Produk</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>ID Produk</th>
+            <th>Nama</th>
+            <th>Harga Jual</th>
+            <th>Sifat Produk</th>
+          </tr>
+          {% for paket in hasil %}
+          <tr>
+            <td> {{ paket.id }} </td>
+            <td> {{ paket.nama }} </td>
+            <td> {{ paket.harga_jual }} </td>
+            <td> {{ paket.sifat_produk }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+
