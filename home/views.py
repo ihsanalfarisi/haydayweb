@@ -11,40 +11,6 @@ from django.template.defaulttags import register
 def index(request):
     cursor = connection.cursor()
     result = []
-    
-    # email = request.POST.get('email')
-    # password = request.POST.get('password')
-        
-    # try:
-    #     cursor.execute("SET SEARCH_PATH TO hiday")
-    #     cursor.execute("SELECT * FROM ADMIN WHERE ADMIN.email ='" + email + "' AND ADMIN.PASSWORD = '" + password + "'")
-    #     # result = namedtuplefetchall(cursor)
-        
-    #     result = cursor.fetchone()
-    #     cursor.close()
-
-    #     if(result == None): 
-        
-    #         cursor = connection.cursor()
-    #         cursor.execute("SET SEARCH_PATH TO hiday")
-    #         cursor.execute("SELECT * FROM PENGGUNA WHERE PENGGUNA.email ='" + email + "' AND PENGGUNA.PASSWORD = '" + password + "'")
-    #         result = cursor.fetchone()
-
-    #         if(result == None):  
-    #             pass
-
-    #     # Redirect the cursor towards public so it can access Django basic features
-    #     cursor = connection.cursor()
-
-    #     cursor.execute("SET SEARCH_PATH TO public")
-    #     request.session['email'] = [email, password, result]
-
-    # except Exception as e:
-    #     print(e)
-    # finally:
-    #     cursor.close()
-    # print(result)
-
     return render(request, 'index.html', {'result': result} )
 
 def login(request):
@@ -59,8 +25,6 @@ def login(request):
         cursor.execute(admin)
         result_admin = cursor.fetchall()
         
-        
-
         pengguna = f"select email from hiday.pengguna where email='{email}' and password='{passw}'"
         cursor.execute(pengguna)
         result_pengguna = cursor.fetchall()
@@ -105,3 +69,34 @@ def pengguna_index(request):
     }
 
     return render(request, 'pengguna-index.html', response)
+
+def register(request):
+    if(request.method == "POST"):
+        print("masuk")
+        register = request.POST
+        cursor = connection.cursor()
+        email = register['email']
+
+        akun = f"insert into hiday.akun values ('{email}')"
+        cursor.execute(akun)
+        cursor.close()
+        
+        cursor = connection.cursor()
+        passw = register['pass']
+        nama_area = register['nama_area']
+
+        pengguna = f"insert into hiday.pengguna values ('{email}', '{passw}', '{nama_area}')"
+        cursor.execute(pengguna)
+        cursor.close()
+
+        request.session.modified = True
+        request.session['email'] = email
+        request.session['role'] = 'pengguna'
+    
+        return redirect('/pengguna-index')
+
+    return render(request, 'register.html')
+
+def logout(request):
+    request.session.clear()
+    return render(request, 'index.html')
