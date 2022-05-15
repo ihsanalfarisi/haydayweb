@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aset</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+        <div class="my-auto d-flex justify-content-center mb-4">
+            <h1>Menu Lihat Aset</h1>
+        </div>
+    <div class="row my-auto d-flex justify-content-center">
+          <a href="/aset/lihat-dekorasi" class="button" style="width: 140px;">
+            <button type="button" class="btn btn-outline-warning">Dekorasi</button>
+            </a>
+            <a href="/aset/lihat-bibit" class="button" style="width: 140px;">
+                <button type="button" class="btn btn-outline-warning">Bibit Tanaman</button>
+            </a>
+            <a href="/aset/lihat-kandang" class="button" style="width: 140px;">
+                <button type="button" class="btn btn-outline-warning">Kandang</button>
+            </a>
+            <a href="/aset/lihat-hewan" class="button" style="width: 140px;">
+                <button type="button" class="btn btn-outline-warning">Hewan</button>
+            </a>
+            <a href="/aset/lihat-alatproduksi" class="button" style="width: 140px;">
+                <button type="button" class="btn btn-outline-warning">Alat Produksi</button>
+            </a>
+            <a href="/aset/lihat-petak" class="button" style="width: 140px;">
+                <button type="button" class="btn btn-outline-warning">Petak Sawah</button>
+            </a>
+    </div>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}
+
