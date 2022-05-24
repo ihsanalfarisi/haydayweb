@@ -8,37 +8,50 @@
 
 {% block content %}
   <head>
-    <meta charset="UTF-8" />
     <title>Aset</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
   </head>
   <body>
-    <div class="container"  style="padding: 50px">
-        <div class="my-auto d-flex justify-content-center mb-4">
-            <h1>Menu Lihat Koleksi Aset</h1>
-        </div>
-    <div class="row my-auto d-flex justify-content-center">
-          <a href="/koleksi-aset/lihat-dekorasi" class="button" style="width: 140px;">
-            <button type="button" class="btn btn-outline-warning">Dekorasi</button>
-            </a>
-            <a href="/koleksi-aset/lihat-bibit" class="button" style="width: 140px;">
-                <button type="button" class="btn btn-outline-warning">Bibit Tanaman</button>
-            </a>
-            <a href="/koleksi-aset/lihat-kandang" class="button" style="width: 140px;">
-                <button type="button" class="btn btn-outline-warning">Kandang</button>
-            </a>
-            <a href="/koleksi-aset/lihat-hewan" class="button" style="width: 140px;">
-                <button type="button" class="btn btn-outline-warning">Hewan</button>
-            </a>
-            <a href="/koleksi-aset/lihat-alatproduksi" class="button" style="width: 140px;">
-                <button type="button" class="btn btn-outline-warning">Alat Produksi</button>
-            </a>
-            <a href="/koleksi-aset/lihat-petak" class="button" style="width: 140px;">
-                <button type="button" class="btn btn-outline-warning">Petak Sawah</button>
-            </a>
+    <div class="container pb-5">
+      <div class="container"  style="padding: 50px">
+          <div class="my-auto d-flex justify-content-center mb-4">
+              <h1>Menu Lihat Koleksi Aset</h1>
+          </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/koleksi-aset/lihat-dekorasi" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Dekorasi</button>
+        </a>
+      </div>
+      <div class="my-auto d-flex justify-content-center">
+        <a href="/koleksi-aset/lihat-bibit" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Bibit Tanaman</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/koleksi-aset/lihat-kandang" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Kandang</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/koleksi-aset/lihat-hewan" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Hewan</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/koleksi-aset/lihat-alatproduksi" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Alat Produksi</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/koleksi-aset/lihat-petak" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Petak Sawah</button>
+        </a>
+      </div>
     </div>
-    </div>
-    </div>
-    </div>
+    {% include 'footer.html' %}
   </body>
 </html>
 {% endblock content %}

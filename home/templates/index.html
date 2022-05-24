@@ -1,8 +1,6 @@
-{% extends 'basedefault.html' %}
 <!DOCTYPE html>
-<html lang="en">
-
 {% load static %}
+<html lang="en">
 
 {% block meta %}
 <title>HI-DAY</title>
@@ -15,17 +13,37 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1 class="pb-5">Selamat datang di HI-DAY</h1>
-    
+    {% if role == 'admin' %}
+        {% include 'base.html' %}
+    {% elif role == 'pengguna' %}
+        {% include 'basepeng.html' %}
+    {% else %}
+        {% include 'basedefault.html' %}
+    {% endif %}
+    <h1 class="pb-5 pt-5">Selamat datang di HI-DAY</h1>
+    {% if role == 'admin' %}
+        <h1>Hai, {{ role }}!</h1>
+        <h1>Email: {{ email }}</h1>
+    {% elif role == 'pengguna' %}
+        <h1>Hai, {{ role }}!</h1>
+        <h1>Email: {{ Email }}</h1>
+        <h1>Nama Area Pertanian: {{ Nama_Area_Pertanian }}</h1>
+        <h1>XP: {{ XP }}</h1>
+        <h1>Koin: {{ Koin }}</h1>
+        <h1>Level: {{ Level }}</h1>
+    {% endif %}
+    {% if role == "" %}
     <div class="d-flex justify-content-center">
         <a href="/login" class="button" style="width: 140px;">
             <button type="button" class="btn btn-outline-warning">Login</button>
         </a>
-        <h4 style="width: 90px;">or</h4>
+        <h4 style="width: 90px;"></h4>
         <a href="/register" class="button">
             <button type="button" class="btn btn-outline-warning">Register</button>
         </a>
     </div>
+    {% endif %}
+    {% include 'footer.html' %}
 </body>
 </html>
 {% endblock content %}

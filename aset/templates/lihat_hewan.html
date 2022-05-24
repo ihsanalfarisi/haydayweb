@@ -26,6 +26,9 @@
             <th>Harga Beli</th>
             <th>Durasi Produksi</th>
             <th>ID Kandang</th>
+            {% if role == 'admin' %}
+            <th>Action</th>
+            {% endif %}
           </tr>
           {% for aset in hasil %}
           <tr>
@@ -36,12 +39,32 @@
             <td> {{ aset.harga_beli }} </td>
             <td> {{ aset.durasi_produksi }} </td>
             <td> {{ aset.id_kandang }} </td>
+            {% if role == 'admin' %}
+            <td>
+              <div class="container">
+                <div class="col-3">
+                  <a href="#">
+                    [Update]
+                  </a>
+                  <a href="#">
+                    [Delete]
+                  </a>
+                </div>
+              </div>
+            </td>
+            {% endif %}
           </tr>
           {% endfor %}
           <!-- END SECTION -->
         </table>
+        <div class="container">
+          <a href="/aset">
+            Kembali ke Menu
+          </a>
+        </div>
       </div>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
 {% endblock content %}

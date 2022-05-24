@@ -12,5 +12,4 @@ urlpatterns = [
     path('lihat-hewan', views.read_hewan, name='lihat_hewan'),
     path('lihat-alatproduksi', views.read_alatproduksi, name='lihat_alatproduksi'),
     path('lihat-petak', views.read_petak, name='lihat_petaksawah'),
-
 ]

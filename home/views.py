@@ -2,6 +2,8 @@ from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.db import connection
 from collections import namedtuple
+
+from requests import session
 from .forms import *
 from django.template.defaulttags import register
 
@@ -10,8 +12,32 @@ from django.template.defaulttags import register
 
 def index(request):
     cursor = connection.cursor()
-    result = []
-    return render(request, 'index.html', {'result': result} )
+    if request.session.get('role') == "admin":
+        role = request.session.get('role')
+        email = request.session.get('email')
+        response = {'email': email, 'role': role}
+        return render(request, 'index.html', response)
+    elif request.session.get('role') == "pengguna":
+        role = request.session.get('role')
+        email = request.session.get('email')
+        print(email)
+        cursor = connection.cursor()
+        query = f"select email, nama_area_pertanian, xp, koin, level from hiday.pengguna where email='{email}'"
+        cursor.execute(query)
+        pengguna = cursor.fetchall()
+        print(pengguna)
+        
+        response = {
+            'Email': pengguna[0][0],
+            'Nama_Area_Pertanian': pengguna[0][1],
+            'XP': pengguna[0][2],
+            'Koin': pengguna[0][3],
+            'Level': pengguna[0][4],
+            'role' : role
+        }
+        return render(request, 'index.html', response)
+    role = ""
+    return render(request, 'index.html', {'role': role} )
 
 def login(request):
     if(request.method == "POST"):
@@ -34,13 +60,13 @@ def login(request):
             request.session.modified = True
             request.session['email'] = email
             request.session['role'] = 'admin'
-            return redirect('/admin-index')
+            return redirect('home')
             
         elif (len(result_pengguna) != 0):
             request.session.modified = True
             request.session['email'] = email
             request.session['role'] = 'pengguna'
-            return redirect('/pengguna-index')
+            return redirect('home')
         else:
             print("login gagal")
 
@@ -49,7 +75,7 @@ def login(request):
 def admin_index(request):
     email = request.session.get('email')
     response = {'email': email}
-    return render(request, 'admin-index.html', response)
+    return render(request, 'index.html', response)
 
 def pengguna_index(request):
     email = request.session.get('email')
@@ -68,7 +94,7 @@ def pengguna_index(request):
         'Level': pengguna[0][4]
     }
 
-    return render(request, 'pengguna-index.html', response)
+    return render(request, 'index.html', response)
 
 def register(request):
     if(request.method == "POST"):
@@ -93,10 +119,11 @@ def register(request):
         request.session['email'] = email
         request.session['role'] = 'pengguna'
     
-        return redirect('/pengguna-index')
+        return redirect('home')
 
     return render(request, 'register.html')
 
 def logout(request):
     request.session.clear()
-    return render(request, 'index.html')
+    # return render(request, 'index.html')
+    return redirect('home')

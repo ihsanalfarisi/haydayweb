@@ -24,77 +24,205 @@ def read(request):
     return render(request, 'koleksi_aset.html', response)
 
 def read_dekorasi(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select * from aset a, koleksi_aset_memiliki_aset ka, dekorasi d where d.id_aset = a.id and a.id=ka.id_aset;
-        """)
-        hasil = tuplefetchall(c)
-    
-    response = {'hasil': hasil,}
+    role =""
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, dekorasi d
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = d.id_aset;   
+            """)
+            hasil = tuplefetchall(c)
+            role = "admin"
 
-    return render(request, 'lihat_dekorasi.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, dekorasi d
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = d.id_aset and
+            email = '{}';""".format(request.session.get('email'))) 
+            hasil = tuplefetchall(c)
+            role = "pengguna"
+    
+    response = {'hasil': hasil, 'role': role}
+
+    return render(request, 'lihat_kdekorasi.html', response)
 
 def read_bibit(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select b.id_aset, a.nama, a.minimum_level, a.harga_beli, b.durasi_panen 
-        from bibit_tanaman b, aset a
-        where a.id = b.id_aset;
-        """)
-        hasil = tuplefetchall(c)
+    role =""
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, bibit_tanaman bt
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = bt.id_aset;
+            """)
+            hasil = tuplefetchall(c)
+            role = "admin"
     
-    response = {'hasil': hasil,}
-
-    return render(request, 'lihat_bibit_tanaman.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, bibit_tanaman bt
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = bt.id_aset and
+            email = '{}';""".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+            role = "pengguna"
+    
+    response = {'hasil': hasil, 'role': role}
+    
+    return render(request, 'lihat_kbibit_tanaman.html', response)
 
 def read_kandang(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select k.id_aset, a.nama, a.minimum_level, a.harga_beli, k.kapasitas_maks, k.jenis_hewan
-        from kandang k, aset a
-        where a.id = k.id_aset;
-        """)
-        hasil = tuplefetchall(c)
+    role =""
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, kandang k
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = k.id_aset;
+            """)
+            hasil = tuplefetchall(c)
+            role = "admin"
     
-    response = {'hasil': hasil,}
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, kandang k
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = k.id_aset and
+            email = '{}';""".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+            role = "pengguna"
+    
+    response = {'hasil': hasil, 'role': role}
 
-    return render(request, 'lihat_kandang.html', response)
+    return render(request, 'lihat_kkandang.html', response)
 
 def read_hewan(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select h.id_aset, a.nama, a.minimum_level, a.harga_beli, h.durasi_produksi, h.id_kandang 
-        from hewan h, aset a
-        where a.id = h.id_aset;
-        """)
-        hasil = tuplefetchall(c)
+    role = ""
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, hewan h
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = h.id_aset;
+            """)
+            hasil = tuplefetchall(c)
+            role = "admin"
     
-    response = {'hasil': hasil,}
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, hewan h
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = h.id_aset and
+            email = '{}';""".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+            role = "pengguna"
+    
+    response = {'hasil': hasil, 'role': role}
 
-    return render(request, 'lihat_hewan.html', response)
+    return render(request, 'lihat_khewan.html', response)
 
 def read_alatproduksi(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select p.id_aset, a.nama, a.minimum_level, a.harga_beli, p.kapasitas_maks 
-        from alat_produksi p, aset a
-        where a.id = p.id_aset;
-        """)
-        hasil = tuplefetchall(c)
-    
-    response = {'hasil': hasil,}
+    role = ""
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, alat_produksi ap
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = ap.id_aset;
+            """)
+            hasil = tuplefetchall(c)
+            role = "admin"
 
-    return render(request, 'lihat_alatproduksi.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, alat_produksi ap
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = ap.id_aset and
+            email = '{}';""".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+            role = "pengguna"
+    
+    response = {'hasil': hasil, 'role': role}
+
+    return render(request, 'lihat_kalatproduksi.html', response)
 
 def read_petak(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select p.id_aset, a.nama, a.minimum_level, a.harga_beli, p.jenis_tanaman
-        from petak_sawah p, aset a
-        where a.id = p.id_aset;
-        """)
-        hasil = tuplefetchall(c)
-    
-    response = {'hasil': hasil,}
+    role = ""
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, petak_sawah ps
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = ps.id_aset;
+            """)
+            hasil = tuplefetchall(c)
+            role = "admin"
 
-    return render(request, 'lihat_petak_sawah.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select km.id_koleksi_aset, a.nama, a.minimum_level, a.harga_beli, km.jumlah
+            FROM KOLEKSI_ASET_MEMILIKI_ASET km, aset a, koleksi_aset ka, petak_sawah ps
+            WHERE
+            km.id_aset = a.id and
+            ka.email = km.id_koleksi_aset and
+            a.id = ps.id_aset and
+            email = '{}';""".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+            role = "pengguna"
+
+    response = {'hasil': hasil, 'role': role}
+
+    return render(request, 'lihat_kpetak_sawah.html', response)

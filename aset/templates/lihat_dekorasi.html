@@ -15,7 +15,7 @@
     <div class="container"  style="padding: 50px">
       <div class="row">
         <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
-          <h1>List Aset Dekorasi</h1>
+          <h1>List Aset Dekorasi </h1>
         </div>
         <table class="table">
           <tr>
@@ -25,6 +25,9 @@
             <th>Minimum Level</th>
             <th>Harga Beli</th>
             <th>Harga jual</th>
+            {% if role == 'admin' %}
+            <th>Action</th>
+            {% endif %}
           </tr>
           {% for aset in hasil %}
           <tr>
@@ -34,12 +37,32 @@
             <td> {{ aset.minimum_level }} </td>
             <td> {{ aset.harga_beli }} </td>
             <td> {{ aset.harga_jual }} </td>
+            {% if role == 'admin' %}
+            <td>
+              <div class="container">
+                <div class="col-3">
+                  <a href="#">
+                    [Update]
+                  </a>
+                  <a href="#">
+                    [Delete]
+                  </a>
+                </div>
+              </div>
+            </td>
+            {% endif %}
           </tr>
           {% endfor %}
           <!-- END SECTION -->
         </table>
+        <div class="container">
+          <a href="/aset">
+            Kembali ke Menu
+          </a>
+        </div>
       </div>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
 {% endblock content %}

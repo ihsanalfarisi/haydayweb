@@ -15,33 +15,41 @@
     <div class="container"  style="padding: 50px">
       <div class="row">
         <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
-          <h1>List Aset Kandang</h1>
+          <h1>List Aset Alat Produksi</h1>
         </div>
         <table class="table">
           <tr>
             <th>No</th>
-            <th>ID</th>
-            <th>Nama</th>
+            {% if role == 'admin' %}
+            <th>Email Pengguna</th>
+            {% endif %}
+            <th>Nama Aset</th>
             <th>Minimum Level</th>
             <th>Harga Beli</th>
-            <th>Kapasitas Maks</th>
-            <th>Jenis Hewan</th>
+            <th>Jumlah</th>
           </tr>
           {% for aset in hasil %}
           <tr>
             <td> {{ forloop.counter }} </th>
-            <td> {{ aset.id_aset }} </td>
+            {% if role == 'admin' %}
+            <td> {{ aset.id_koleksi_aset }} </td>
+            {% endif %}
             <td> {{ aset.nama }} </td>
             <td> {{ aset.minimum_level }} </td>
             <td> {{ aset.harga_beli }} </td>
-            <td> {{ aset.kapasitas_maks }} </td>
-            <td> {{ aset.jenis_hewan }} </td>
+            <td> {{ aset.jumlah }} </td>
           </tr>
           {% endfor %}
           <!-- END SECTION -->
         </table>
+        <div class="container">
+          <a href="/koleksi-aset">
+            Kembali ke Menu
+          </a>
+        </div>
       </div>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
 {% endblock content %}
