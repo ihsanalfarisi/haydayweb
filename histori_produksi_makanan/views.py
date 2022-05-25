@@ -13,7 +13,15 @@ def tuplefetchall(cursor):
 def read(request):
     with connection.cursor() as c:
         c.execute("set search_path to hiday")
-        c.execute("""select * from histori_produksi_makanan;""")
+        c.execute("""select hpm.email, hpm.waktu_awal, hp.waktu_selesai, hpm.id_produk_makanan, 
+                    hp.jumlah, hp.xp, pk.nama as pnama, a.nama as anama
+                    from histori_produksi_makanan as hpm
+                    join histori_produksi as hp
+                    on hpm.email = hp.email
+                    join produk as pk
+                    on hpm.id_produk_makanan = pk.id
+                    join aset as a
+                    on hpm.id_alat_produksi = a.id""")
         hasil = tuplefetchall(c)
     
     response = {'hasil': hasil,}

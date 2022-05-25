@@ -19,17 +19,23 @@
         </div>
         <table class="table">
           <tr>
-            <th>Email</th>
+            <th>Email Pengguna</th>
             <th>Waktu Awal</th>
-            <th>ID Alat Produksi</th>
-            <th>ID Produk Makanan</th>
+            <th>Waktu Selesai</th>
+            <th>Jumlah</th>
+            <th>XP</th>
+            <th>Produk Makanan</th>
+            <th>Alat Produksi</th>
           </tr>
-          {% for paket in hasil %}
+          {% for i in hasil %}
           <tr>
-            <td> {{ paket.email }} </td>
-            <td> {{ paket.waktu_awal }} </td>
-            <td> {{ paket.id_alat_produksi }} </td>
-            <td> {{ paket.id_produk_makanan }} </td>
+            <td> {{ i.email }} </td>
+            <td> {{ i.waktu_awal }} </td>
+            <td> {{ i.waktu_selesai }} </td>
+            <td> {{ i.jumlah }} </td>
+            <td> {{ i.xp }} </td>
+            <td> {{ i.pnama }} </td>
+            <td> {{ i.anama }} </td>
           </tr>
           {% endfor %}
           <!-- END SECTION -->

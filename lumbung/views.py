@@ -13,7 +13,9 @@ def tuplefetchall(cursor):
 def read(request):
     with connection.cursor() as c:
         c.execute("set search_path to hiday")
-        c.execute("""select * from paket_koin;""")
+        c.execute("""select lmp.id_lumbung, lmp.id_produk, p.nama, p.harga_jual, p.sifat_produk, lmp.jumlah 
+                from lumbung_memiliki_produk lmp, produk p, produk_makanan pm 
+                where pm.id_produk = p.id and lmp.id_produk = p.id;""")
         hasil = tuplefetchall(c)
     
     response = {'hasil': hasil,}
