@@ -5,7 +5,7 @@ from django.db import connection
 from collections import namedtuple
 
 def menu_aset(request):
-    return render(request, 'menu_aset.html')
+    return render(request, 'menu_aset.html', {'role': request.session.get('role')})
 
 def tuplefetchall(cursor):
     "Return all rows from a cursor as a namedtuple"

@@ -1,6 +1,3 @@
-{% extends 'base.html' %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +11,13 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
   </head>
   <body>
+    {% if role == 'admin' %}
+    {% include 'base.html' %}
+    {% elif role == 'pengguna' %}
+    {% include 'basepeng.html' %}
+    {% else %}
+    {% include 'basedefault.html' %}
+    {% endif %}
     <div class="container pb-5">
       <div class="container"  style="padding: 50px">
           <div class="my-auto d-flex justify-content-center mb-4">
