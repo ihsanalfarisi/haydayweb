@@ -19,17 +19,27 @@
         </div>
         <table class="table">
           <tr>
-            <th>Email</th>
-            <th>Waktu</th>
+            <th>No</th>
+            {% if role == 'admin' %}
+            <th>Email Pengguna</th>
+            {% endif %}
+            <th>Waktu Pembelian</th>
+            <th>Jenis</th>
+            <th>Nama Aset</th>
             <th>Jumlah</th>
-            <th>ID Aset</th>
+            <th>Total Harga</th>
           </tr>
-          {% for transaksi in hasil %}
+          {% for aset in hasil %}
           <tr>
-            <td> {{ transaksi.email }} </td>
-            <td> {{ transaksi.waktu }} </td>
-            <td> {{ transaksi.jumlah }} </td>
-            <td> {{ transaksi.id_aset }} </td>
+            <td> {{ forloop.counter }} </th>
+            {% if role == 'admin' %}
+            <td> {{ aset.email }} </td>
+            {% endif %}
+            <td> {{ aset.waktu }} </td>
+            <td> {{ aset.jenis }} </td>
+            <td> {{ aset.nama }} </td>
+            <td> {{ aset.jumlah }} </td>
+            <td> {{ aset.total_harga }} </td>
           </tr>
           {% endfor %}
           <!-- END SECTION -->

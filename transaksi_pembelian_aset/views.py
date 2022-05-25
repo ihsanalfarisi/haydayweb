@@ -13,9 +13,14 @@ def tuplefetchall(cursor):
 def read(request):
     with connection.cursor() as c:
         c.execute("set search_path to hiday")
-        c.execute("""select * from transaksi_pembelian;""")
+        c.execute("""
+        select tp.email, tp.waktu, a.nama, tp.jumlah, (tp.jumlah * a.harga_beli) total_harga
+        FROM transaksi_pembelian tp
+        LEFT OUTER JOIN aset a ON tp.id_aset = a.id;
+        """)
         hasil = tuplefetchall(c)
+        role = 'admin'
     
-    response = {'hasil': hasil,}
+    response = {'hasil': hasil, 'role': role}
 
     return render(request, 'transaksi_pembelian_aset.html', response)

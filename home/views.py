@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from collections import namedtuple
 
-from requests import session
 from .forms import *
 from django.template.defaulttags import register
 
