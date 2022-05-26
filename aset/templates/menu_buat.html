@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <title>Nuat Aset</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    {% if role == 'admin' %}
+    {% include 'base.html' %}
+    {% elif role == 'pengguna' %}
+    {% include 'basepeng.html' %}
+    {% else %}
+    {% include 'basedefault.html' %}
+    {% endif %}
+    <div class="container pb-5">
+      <div class="container"  style="padding: 50px">
+          <div class="my-auto d-flex justify-content-center mb-4">
+              <h1>Menu Buat Aset</h1>
+          </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/aset/buat-dekorasi" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Dekorasi</button>
+        </a>
+      </div>
+      <div class="my-auto d-flex justify-content-center">
+        <a href="/aset/buat-bibit" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Bibit Tanaman</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/aset/buat-kandang" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Kandang</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/aset/buat-hewan" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Hewan</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/aset/buat-alatproduksi" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Alat Produksi</button>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/aset/buat-petak" class="button" style="width: 140px;">
+          <button type="button" class="btn btn-outline-warning">Petak Sawah</button>
+        </a>
+      </div>
+    </div>
+    {% include 'footer.html' %}
+  </body>
+</html>
+{% endblock content %}
+

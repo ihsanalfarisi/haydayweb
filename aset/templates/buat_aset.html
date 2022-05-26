@@ -1,0 +1,120 @@
+{% load static %}
+
+{% block meta %}
+<title>Beli</title>
+{% endblock meta %}
+
+{% block content %}
+{% if role == 'admin' %}
+{% include 'base.html' %}
+{% elif role == 'pengguna' %}
+{% include 'basepeng.html' %}
+{% else %}
+{% include 'basedefault.html' %}
+{% endif %}
+<style>
+    .hero-container {
+        width: 100%;
+        align-items: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        
+    }
+    html {
+        background-color: #CFE4EC;
+;
+    }
+    button {
+        width: 462px;
+        height: 50px;
+        left: 200px;
+        top: 200px;
+
+        background: #4276B7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 70px;
+        border-style: none;
+    }
+
+    button h1 {
+        color: white;
+    }
+
+    form {
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="row">
+    <div class="mb-5"></div>
+    <div class="d-flex justify-content-center mb-5" style="width:1900px;">
+    {% if jenis == "d" %}
+      <h1>Form Buat Aset Dekorasi</h1>
+    {% elif jenis == "bt" %}
+        <h1>Form Buat Aset Bibit Tanaman</h1>
+    {% elif jenis == "k" %}
+        <h1>Form Buat Aset Kandang</h1>
+    {% elif jenis == "h" %}
+        <h1>Form Buat Aset Hewan</h1>
+    {% elif jenis == "ap" %}
+        <h1>Form Buat Aset Alat Produksi</h1>
+    {% elif jenis == "ps" %}
+        <h1>Form Buat Aset Petak Sawah</h1>
+    {% endif %}
+    </div>
+    <div class="hero-container">
+        <div class="form-container">
+            <h5>ID: {{ id }}</h5>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" name="nama">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Minimum Level</label>
+                    <input type="number" class="form-control" name="minimum_level">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Harga Beli</label>
+                    <input type="number" class="form-control" name="harga_beli">
+                </div>
+                <div class="mb-3">
+                    {% if jenis == "d" %}
+                        <label class="form-label">Harga Jual</label>
+                        <input type="number" class="form-control" name="unik">
+                    {% elif jenis == "bt" %}
+                        <label class="form-label">Durasi Panen</label>
+                        <input type="text" class="form-control" name="unik" placeholder='Format = 00:00:00'>
+                    {% elif jenis == "k" %}
+                        <label class="form-label">Kapasitas Maks</label>
+                        <input type="number" class="form-control" name="unik1">
+                        <div class="mb-3"></div>
+                        <label class="form-label">Jenis Hewan</label>
+                        <input type="text" class="form-control" name="unik2">
+                    {% elif jenis == "h" %}
+                        <label class="form-label">Durasi Produksi</label>
+                        <input type="text" class="form-control" name="unik" placeholder='Format = 00:00:00'>
+                    {% elif jenis == "ap" %}
+                        <label class="form-label">Kapasitas Maks</label>
+                        <input type="number" class="form-control" name="unik">
+                    {% elif jenis == "ps" %}
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="selectAset">Detail Aset</label>
+                            <select name='unik' class="form-select" id="selectId">
+                            <option value="">--Select--</option>
+                            {% for aset in hasil %}
+                                <option value="{{ aset.nama }}"> {{ aset.nama }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">TAMBAHKAN</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock content %}

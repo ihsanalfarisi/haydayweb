@@ -40,25 +40,36 @@
         justify-content: center;
     }
 </style>
-
-<div class="hero-container">
-    <div class="form-container">
-        <form method="POST">
-            {% csrf_token %}
-              <div class="mb-3">
-                <label for="input-email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="input-email" aria-describedby="help-input-email" name="email">
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Nama Area Pertanian</label>
-                <input type="text" class="form-control" name="nama_area">
-              </div>
-              <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+<div class="row">
+    <div class="my-auto d-flex justify-content-center mt-5" style="width:2000px;">
+        <h1>Register</h1>
+    </div>
+    <div class="hero-container">
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="input-email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="input-email" aria-describedby="help-input-email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Area Pertanian</label>
+                    <input type="text" class="form-control" name="nama_area">
+                </div>
+                <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+            <div class="mb-3">
+                <a href='/login'>
+                    <button class="btn btn-outline-secondary">Sudah punya akun? Masuk sekarang</button>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% include 'footer.html' %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.db import connection
@@ -137,8 +137,352 @@ def read_petak(request):
     response = {'hasil': hasil,}
     return render(request, 'lihat_petak_sawah.html', response)
 
-def isAdmin(request):
-    if request.session.get('role') == "admin":
-        return True
+def menu_buat(request):
+    return render(request, 'menu_buat.html', {'role': request.session.get('role')})
+
+def buat_dekorasi(request):
+    if(request.method == "POST"):
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select * from dekorasi
+            """)
+            hasil = tuplefetchall(c)
+        count = 0
+        for aset in hasil:
+            count+=1
+        print(count)
+        if count< 9:
+            idauto = "d0{}".format(count+1)
+        else:
+            idauto = "d{}".format(count+1)
+        print("masuk")
+        buat = request.POST
+        cursor = connection.cursor()
+        id = idauto
+        nama = buat['nama']
+        minimum_level = buat['minimum_level']
+        harga_beli = buat['harga_beli']
+        harga_jual = buat['unik']
+        print(id)
+
+        buat = f"insert into hiday.aset values ('{id}', '{nama}', {minimum_level}, {harga_beli})"
+        cursor.execute(buat)
+        cursor.close()
+
+        cursor = connection.cursor()
+
+        buat = f"insert into hiday.dekorasi values ('{id}', {harga_jual})"
+        cursor.execute(buat)
+        cursor.close()
+
+        return redirect('lihat_dekorasi')
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select * from dekorasi
+        """)
+        hasil = tuplefetchall(c)
+    count = 0
+    for aset in hasil:
+        count+=1
+    print(count)
+    if count< 9:
+        idauto = "d0{}".format(count+1)
     else:
-        return False;
+        idauto = "d{}".format(count+1)
+    response = {'role': 'admin', 'id': idauto, 'jenis': 'd'}
+    return render(request, 'buat_aset.html', response)
+
+def buat_bibit(request):
+    if(request.method == "POST"):
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select * from bibit_tanaman 
+            """)
+            hasil = tuplefetchall(c)
+        count = 0
+        for aset in hasil:
+            count+=1
+        print(count)
+        if count< 9:
+            idauto = "bt0{}".format(count+1)
+        else:
+            idauto = "bt{}".format(count+1)
+        print("masuk")
+        buat = request.POST
+        cursor = connection.cursor()
+        id = idauto
+        nama = buat['nama']
+        minimum_level = buat['minimum_level']
+        harga_beli = buat['harga_beli']
+        durasi_panen = buat['unik']
+        print(id)
+
+        buat = f"insert into hiday.aset values ('{id}', '{nama}', {minimum_level}, {harga_beli})"
+        cursor.execute(buat)
+        cursor.close()
+
+        cursor = connection.cursor()
+
+        buat = f"insert into hiday.bibit_tanaman values ('{id}', '{durasi_panen}')"
+        cursor.execute(buat)
+        cursor.close()
+
+        return redirect('lihat_bibit')
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select * from bibit_tanaman
+        """)
+        hasil = tuplefetchall(c)
+    count = 0
+    for aset in hasil:
+        count+=1
+    print(count)
+    if count< 9:
+        idauto = "bt0{}".format(count+1)
+    else:
+        idauto = "bt{}".format(count+1)
+    response = {'role': 'admin', 'id': idauto, 'jenis': 'bt'}
+    return render(request, 'buat_aset.html', response)
+
+def buat_kandang(request):
+    if(request.method == "POST"):
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select * from kandang
+            """)
+            hasil = tuplefetchall(c)
+        count = 0
+        for aset in hasil:
+            count+=1
+        print(count)
+        if count< 9:
+            idauto = "k0{}".format(count+1)
+        else:
+            idauto = "k{}".format(count+1)
+        print("masuk")
+        buat = request.POST
+        cursor = connection.cursor()
+        id = idauto
+        nama = buat['nama']
+        minimum_level = buat['minimum_level']
+        harga_beli = buat['harga_beli']
+        kapasitas = buat['unik1']
+        jenis  = buat['unik2']
+        print(id)
+
+        buat = f"insert into hiday.aset values ('{id}', '{nama}', {minimum_level}, {harga_beli})"
+        cursor.execute(buat)
+        cursor.close()
+
+        cursor = connection.cursor()
+
+        buat = f"insert into hiday.kandang values ('{id}', {kapasitas}, '{jenis}')"
+        cursor.execute(buat)
+        cursor.close()
+
+        return redirect('lihat_kandang')
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select * from kandang
+        """)
+        hasil = tuplefetchall(c)
+    count = 0
+    for aset in hasil:
+        count+=1
+    print(count)
+    if count< 9:
+        idauto = "k0{}".format(count+1)
+    else:
+        idauto = "k{}".format(count+1)
+    response = {'role': 'admin', 'id': idauto, 'jenis': 'k'}
+    return render(request, 'buat_aset.html', response)
+
+def buat_hewan(request):
+    if(request.method == "POST"):
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select * from hewan
+            """)
+            hasil = tuplefetchall(c)
+        count = 0
+        for aset in hasil:
+            count+=1
+        print(count)
+        if count< 9:
+            idauto = "h0{}".format(count+1)
+        else:
+            idauto = "h{}".format(count+1)
+        print("masuk")
+        buat = request.POST
+        cursor = connection.cursor()
+        id = idauto
+        nama = buat['nama']
+        minimum_level = buat['minimum_level']
+        harga_beli = buat['harga_beli']
+        durasi = buat['unik']
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute(f"""
+            select k.id_aset from kandang k, aset a
+            where k.jenis_hewan = '{nama}'
+            """)
+            hasil = tuplefetchall(c)
+        for aset in hasil:
+            id_kandang = aset.id_aset
+        print(id_kandang)
+        
+        buat = f"insert into hiday.aset values ('{id}', '{nama}', {minimum_level}, {harga_beli})"
+        cursor.execute(buat)
+        cursor.close()
+
+        cursor = connection.cursor()
+
+        buat = f"insert into hiday.hewan values ('{id}', '{durasi}', '{id_kandang}')"
+        cursor.execute(buat)
+        cursor.close()
+
+        return redirect('lihat_hewan')
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select * from hewan
+        """)
+        hasil = tuplefetchall(c)
+    count = 0
+    for aset in hasil:
+        count+=1
+    print(count)
+    if count< 9:
+        idauto = "h0{}".format(count+1)
+    else:
+        idauto = "h{}".format(count+1)
+    response = {'role': 'admin', 'id': idauto, 'jenis': 'h'}
+    return render(request, 'buat_aset.html', response)
+
+def buat_alat(request):
+    if(request.method == "POST"):
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select * from alat_produksi
+            """)
+            hasil = tuplefetchall(c)
+        count = 0
+        for aset in hasil:
+            count+=1
+        print(count)
+        if count< 9:
+            idauto = "ap0{}".format(count+1)
+        else:
+            idauto = "ap{}".format(count+1)
+        print("masuk")
+        buat = request.POST
+        cursor = connection.cursor()
+        id = idauto
+        nama = buat['nama']
+        minimum_level = buat['minimum_level']
+        harga_beli = buat['harga_beli']
+        kapasitas = buat['unik']
+        
+        buat = f"insert into hiday.aset values ('{id}', '{nama}', {minimum_level}, {harga_beli})"
+        cursor.execute(buat)
+        cursor.close()
+
+        cursor = connection.cursor()
+
+        buat = f"insert into hiday.alat_produksi values ('{id}', {kapasitas})"
+        cursor.execute(buat)
+        cursor.close()
+
+        return redirect('lihat_alatproduksi')
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select * from alat_produksi
+        """)
+        hasil = tuplefetchall(c)
+    count = 0
+    for aset in hasil:
+        count+=1
+    print(count)
+    if count< 9:
+        idauto = "ap0{}".format(count+1)
+    else:
+        idauto = "ap{}".format(count+1)
+    response = {'role': 'admin', 'id': idauto, 'jenis': 'ap'}
+    return render(request, 'buat_aset.html', response)
+
+def buat_petak(request):
+    if(request.method == "POST"):
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""
+            select * from petak_sawah
+            """)
+            hasil = tuplefetchall(c)
+        count = 0
+        for aset in hasil:
+            count+=1
+        print(count)
+        if count< 9:
+            idauto = "ps0{}".format(count+1)
+        else:
+            idauto = "ps{}".format(count+1)
+        print("masuk")
+        buat = request.POST
+        cursor = connection.cursor()
+        id = idauto
+        nama = buat['nama']
+        minimum_level = buat['minimum_level']
+        harga_beli = buat['harga_beli']
+        jenis = buat['unik']
+        
+        buat = f"insert into hiday.aset values ('{id}', '{nama}', {minimum_level}, {harga_beli})"
+        cursor.execute(buat)
+        cursor.close()
+
+        cursor = connection.cursor()
+
+        buat = f"insert into hiday.petak_sawah values ('{id}', '{jenis}')"
+        cursor.execute(buat)
+        cursor.close()
+
+        return redirect('lihat_petaksawah')
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select * from alat_produksi
+        """)
+        hasil = tuplefetchall(c)
+    count = 0
+    for aset in hasil:
+        count+=1
+    print(count)
+    if count< 9:
+        idauto = "ps0{}".format(count+1)
+    else:
+        idauto = "ps{}".format(count+1)
+    
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select a.nama from aset a, bibit_tanaman bt
+        where a.id = bt.id_aset
+        """)
+        hasil = tuplefetchall(c)
+
+    response = {'role': 'admin', 'id': idauto, 'jenis': 'ps', 'hasil': hasil}
+    return render(request, 'buat_aset.html', response)

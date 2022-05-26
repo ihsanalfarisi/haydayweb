@@ -46,42 +46,46 @@
         justify-content: center;
     }
 </style>
-
-<div class="hero-container">
-    <div class="form-container">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="selectAset">Detail Aset</label>
-                <select name='id' class="form-select" id="selectId">
-                  <option value="">--Select--</option>
-                  {% for aset in hasil %}
-                    <option value="{{ aset.idf }}"> 
-                        {% if aset.id == "b" %}
-                        Bibit Tanaman -
-                        {% elif aset.id == "p" %}
-                        Petak Sawah -
-                        {% elif aset.id == "h" %}
-                        Hewan -
-                        {% elif aset.id == "k" %}
-                        Kandang -   
-                        {% elif aset.id == "d" %}
-                        Dekorasi -
-                        {% elif aset.id == "a" %}
-                        Alat Produksi -
-                        {% else %}
-                        <td>{{ aset.id }}</td>
-                        {% endif %}
-                        {{ aset.nama }} - {{ aset.harga_beli }} </option>
-                  {% endfor %}
-                </select>
-            </div>
-              <div class="mb-3">
-                <label class="form-label">Jumlah</label>
-                <input type="text" class="form-control" name="jumlah">
-              </div>
-              <button type="submit" class="btn btn-primary">BELI</button>
-        </form>
+<div class="row">
+    <div class="d-flex justify-content-center mt-5" style="width:2000px;">
+      <h1>Buat Transaksi Pembelian Aset</h1>
+    </div>
+    <div class="hero-container">
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="selectAset">Detail Aset</label>
+                    <select name='id' class="form-select" id="selectId">
+                    <option value="">--Select--</option>
+                    {% for aset in hasil %}
+                        <option value="{{ aset.idf }}"> 
+                            {% if aset.id == "b" %}
+                            Bibit Tanaman -
+                            {% elif aset.id == "p" %}
+                            Petak Sawah -
+                            {% elif aset.id == "h" %}
+                            Hewan -
+                            {% elif aset.id == "k" %}
+                            Kandang -   
+                            {% elif aset.id == "d" %}
+                            Dekorasi -
+                            {% elif aset.id == "a" %}
+                            Alat Produksi -
+                            {% else %}
+                            <td>{{ aset.id }}</td>
+                            {% endif %}
+                            {{ aset.nama }} - {{ aset.harga_beli }} </option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Jumlah</label>
+                    <input type="text" class="form-control" name="jumlah">
+                </div>
+                <button type="submit" class="btn btn-primary">BELI</button>
+            </form>
+        </div>
     </div>
 </div>
 {% include 'footer.html' %}
