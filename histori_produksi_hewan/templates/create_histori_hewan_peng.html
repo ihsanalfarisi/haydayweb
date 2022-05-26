@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Histori Produksi Hewan</title>
+  </head>
+  <body>
+
+  <!-- Create Histori Hewan -->
+  <center><a href="/histori-produksi-hewan/create-histori-hewan" class="btn btn-primary">Create Histori Hewan</a></center>
+
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>List Histori Produksi Hewan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email</th>
+            <th>Waktu Awal</th>
+            <th>Waktu Selesai</th>
+            <th>Jumlah</th>
+            <th>XP</th>
+            <th>Hewan</th>
+          </tr>
+          {% for histori_produksi in hasil %}
+          <tr>
+            <td> {{ histori_produksi.email }} </td>
+            <td> {{ histori_produksi.waktu_awal }} </td>
+            <td> {{ histori_produksi.waktu_selesai }} </td>
+            <td> {{ histori_produksi.jumlah }} </td>
+            <td> {{ histori_produksi.xp }} </td>
+            <td> {{ histori_produksi.nama }}</td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+    </div>
+  </body>
+  {% include 'footer.html' %}
+</html>
+{% endblock content %}
+

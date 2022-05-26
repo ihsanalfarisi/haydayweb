@@ -12,21 +12,42 @@ def tuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 def read(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select * from pesanan;""")
-        hasil = tuplefetchall(c)
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select * from pesanan;""")
+            hasil = tuplefetchall(c)
     
-    response = {'hasil': hasil,}
+        response = {'hasil': hasil,}
 
-    return render(request, 'pesanan.html', response)
+        return render(request, 'pesanan.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select * from pesanan;""")
+            hasil = tuplefetchall(c)
 
-def detail_pesanan(request):
-      with connection.cursor() as c:
+        response = {'hasil': hasil,}
+
+        return render(request, 'pesanan_peng.html', response)
+
+def detailpesanan(request):
+    if request.session.get('role') == "admin" or request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
             c.execute("set search_path to hiday")
             c.execute("""select * from detail_pesanan;""")
             hasil = tuplefetchall(c)
+    
+    if request.session.get('role') == "admin":
+        response = {'hasil': hasil, 'role': 'admin'}
+        return render(request, 'detail_pesanan.html', response)
+    else:
+        response = {'hasil': hasil, 'role': 'pengguna'}
+        return render(request, 'detail_pesanan.html', response)
 
-      response = {'hasil': hasil,}
+        response = {'hasil': hasil,}
 
-      return render(request, 'detail_pesanan.html', response)
+        return render(request, 'detail_pesanan.html', response)
+
+def createpesanan(request):
+    return render(request, 'create_pesanan.html', {})

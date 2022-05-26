@@ -35,7 +35,7 @@
             <td> {{ pesanan.total }} </td>
             <td> {{ pesanan.status}} </td>
             <td>
-                  <a href="/pesanan/detail-pesanan/{{pesanan.id}}">[Detail]</a>
+                <a href="/detail-pesanan">[Detail]</a>
             </td>
           </tr>
           {% endfor %}
@@ -43,6 +43,7 @@
         </table>
       </div>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
 {% endblock content %}

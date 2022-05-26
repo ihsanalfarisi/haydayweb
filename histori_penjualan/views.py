@@ -12,14 +12,24 @@ def tuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 def read(request):
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""select * from histori_penjualan;""")
-        hasil = tuplefetchall(c)
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select * from histori_penjualan;""")
+            hasil = tuplefetchall(c)
     
-    response = {'hasil': hasil,}
+        response = {'hasil': hasil,}
 
-    return render(request, 'histori_penjualan.html', response)
+        return render(request, 'histori_penjualan.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select * from histori_penjualan;""")
+            hasil = tuplefetchall(c)
+
+        response = {'hasil': hasil,}
+
+        return render(request, 'histori_penjualan_peng.html', response)
 
 def detail_pesanan(request):
       with connection.cursor() as c:

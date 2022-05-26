@@ -12,9 +12,9 @@ def tuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 def read(request):
+  if request.session.get('role') == "admin":
     with connection.cursor() as c:
         c.execute("set search_path to hiday")
-      #   c.execute("""select * from histori_produksi;""")
         c.execute("""select hh.email,hh.waktu_awal,hp.waktu_selesai,hp.jumlah, hp.xp, 
         a.nama from histori_hewan hh, histori_produksi hp, hewan h, 
         aset a where hh.email = hp.email and hh.waktu_awal = hp.waktu_awal and 
@@ -24,6 +24,19 @@ def read(request):
     response = {'hasil': hasil,}
 
     return render(request, 'histori_produksi_hewan.html', response)
+  elif request.session.get('role') == "pengguna":
+    with connection.cursor() as c:
+      c.execute("set search_path to hiday")
+      c.execute("""select hh.email,hh.waktu_awal,hp.waktu_selesai,hp.jumlah, hp.xp, 
+        a.nama from histori_hewan hh, histori_produksi hp, hewan h, 
+        aset a where hh.email = hp.email and hh.waktu_awal = hp.waktu_awal and 
+        hh.id_hewan = h.id_aset and h.id_aset = a.id;""")
+      hasil = tuplefetchall(c)
+
+    response = {'hasil': hasil,}
+    return render(request, 'histori_produksi_hewan_peng.html', response)
+
+
 
 def CreateHistoriHewan(request):
       c = connection.cursor()

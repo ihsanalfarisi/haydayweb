@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+<head>
+      <meta charset="UTF-8" />
+      <title>Buat Pesanan</title>
+</head>
+
+<center><h1>FORM BUAT PESANAN</h1></center>
+
+<form name="form1" action="" method="post" onsubmit="return checkSubmit()">
+
+    <label for="id">ID Pesanan:</label>
+    <input type="text" id="idPesanan" name="idPesanan" disabled><br>
+
+    <label for="nama">Nama Pesanan:</label>
+    <input type="text" id="namaPesanan" name="namaPesanan" required><br>
+
+    <label for="jenis">Jenis Pesanan:</label>
+    <input type="text" id="jenisPesanan" name="jenisPesanan" required><br>
+
+    {% csrf_token %}
+    <label for="detailPesanan">Detail Pesanan</label>
+    <select id="detailPesanan" name="detailPesanan" onchange="myFunction(event)">
+        <option value="-">Pilih Detail Pesanan</option>
+        {% for i in daftarPesanan %}
+            <option value="{{ i.nama }} {{ i.max }}" required>{{ i.nama }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <center><input type="submit" value="BUAT"></center>
+</form>
+{% endblock content %}

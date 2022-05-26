@@ -34,9 +34,7 @@
             <td> {{ histori_penjualan.koin }} </td>
             <td> {{ histori_penjualan.xp }} </td>
             <td>
-                  <!-- <input type="button" onclick="location.href='/detail-pesanan/';" value="[Detail]" /> -->
                   <a class="btn btn-primary" href="/detail-pesanan/" role="button">Detail</a>
-                  <!-- <a type="button" class="btn btn-outline-danger" href="/detail_pesanan" onclick="return confirm('Anda yakin mau menghapus data ini?');">Delete</a> -->
             </td>
           </tr>
           {% endfor %}
@@ -44,6 +42,7 @@
         </table>
       </div>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
 {% endblock content %}
