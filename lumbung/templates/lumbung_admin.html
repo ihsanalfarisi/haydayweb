@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lumbung Admin</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>Lumbung Makanan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email</th>
+            <th>ID Produk</th>
+            <th>Nama Produk</th>
+            <th>Harga Jual</th>
+            <th>Sifat Produk</th>
+            <th>Jumlah Produk</th>
+          </tr>
+          {% for i in hasilmakanan %}
+          <tr>
+            <td> {{ i.id_lumbung }} </td>
+            <td> {{ i.id_produk }} </td>
+            <td> {{ i.nama }} </td>
+            <td> {{ i.harga_jual }} </td>
+            <td> {{ i.sifat_produk }} </td>
+            <td> {{ i.jumlah }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+
+
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>Lumbung Hewan</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email</th>
+            <th>ID Produk</th>
+            <th>Nama Produk</th>
+            <th>Harga Jual</th>
+            <th>Sifat Produk</th>
+            <th>Jumlah Produk</th>
+          </tr>
+          {% for j in hasilhewan %}
+          <tr>
+            <td> {{ j.id_lumbung }} </td>
+            <td> {{ j.id_produk }} </td>
+            <td> {{ j.nama }} </td>
+            <td> {{ j.harga_jual }} </td>
+            <td> {{ j.sifat_produk }} </td>
+            <td> {{ j.jumlah }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+
+
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>Lumbung Panen</h1>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Email</th>
+            <th>ID Produk</th>
+            <th>Nama Produk</th>
+            <th>Harga Jual</th>
+            <th>Sifat Produk</th>
+            <th>Jumlah Produk</th>
+          </tr>
+          {% for k in hasilpanen %}
+          <tr>
+            <td> {{ k.id_lumbung }} </td>
+            <td> {{ k.id_produk }} </td>
+            <td> {{ k.nama }} </td>
+            <td> {{ k.harga_jual }} </td>
+            <td> {{ k.sifat_produk }} </td>
+            <td> {{ k.jumlah }} </td>
+          </tr>
+          {% endfor %}
+          <!-- END SECTION -->
+        </table>
+      </div>
+
+    </div>
+  </body>
+</html>
+{% endblock content %}
+

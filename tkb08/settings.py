@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'home',
+    'lumbung',
     #hijau
     'paket_koin',
     'transaksi_upgrade_lumbung',

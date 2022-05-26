@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('lumbung/', include('lumbung.urls')),
     #hijau
     path('paket-koin/', include('paket_koin.urls')),
     path('transaksi-upgrade-lumbung/', include('transaksi_upgrade_lumbung.urls')),
