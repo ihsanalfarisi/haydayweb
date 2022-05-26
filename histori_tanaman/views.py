@@ -38,3 +38,28 @@ def create_produksi(request):
             hasil = tuplefetchall(c)
         response = {'hasil': hasil}
         return render(request, 'create_produksi_tanaman.html', response)
+
+def create_validation_produksi_tanaman(request):
+    data_paket = {
+        "jumlah_koin" : request.POST.get("jumlah_koin"),
+        "harga" : request.POST.get("harga")
+    }
+
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""
+        select jumlah_koin from paket_koin
+        """)
+        hasil = tuplefetchall(c)
+        if len(data_paket['jumlah_koin'])==0:
+            return render(request, 'create_paket_koin.html', {'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"});
+        if len(data_paket['harga'])==0:
+            return render(request, 'create_paket_koin.html', {'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"});
+        for data in hasil :
+            if str(data.jumlah_koin) == data_paket['jumlah_koin'] :
+                return render(request, 'create_paket_koin.html', {'message' : "Data yang kamu masukkan sudah terdaftar di Database. Harap masukkan data lain"});
+        jumlah_koinn= int(data_paket['jumlah_koin'])
+        hargaa= int(data_paket['harga'])
+        c.execute("insert into paket_koin values ('{}', '{}')".format(jumlah_koinn,hargaa))
+    
+        return redirect('/paket-koin/paket_koin/read')

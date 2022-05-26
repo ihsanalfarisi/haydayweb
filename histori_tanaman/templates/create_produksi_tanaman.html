@@ -15,9 +15,14 @@
     <form method="post" action="{% url 'validate' paket_koin harga %}">
         {% csrf_token %}
         
-        <div class="form-group">
-            <label for="harga">Harga : {{harga}}</label>
-            <input type="text" class="form-control" id="harga" name="harga" placeholder="-" disabled>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="selectTanaman">Nama Tokoh: </label>
+          <select name='tokoh' class="form-select" id="selectTanaman">
+            <option value="">--Select--</option>
+            {% for bibit in hasil %}
+              <option value="{{ bibit.nama }}"> {{bibit.nama}} </option>
+            {% endfor %}
+          </select>
         </div>
         <div class="form-group">
           <label for="harga">Jumlah : </label>
