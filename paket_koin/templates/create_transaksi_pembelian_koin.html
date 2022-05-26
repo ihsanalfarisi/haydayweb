@@ -1,0 +1,44 @@
+{% extends 'basepeng.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+{% load static %}
+
+{% block content %}
+<title>Pembelian Paket Koin</title>
+  <div class="container">
+    <h3>Form Pembelian Paket Koin</h3>
+    <form method="post" action="{% url 'validate' paket_koin %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="jumlah_koin">Paket Koin: {{paket_koin}}</label>
+            <input type="text" class="form-control" id="paket_koin" name="paket_koin" placeholder="-" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="harga">Harga : {{harga}}</label>
+            <input type="text" class="form-control" id="harga" name="harga" placeholder="-" disabled>
+        </div>
+        <div class="form-group">
+          <label for="harga">Jumlah : </label>
+          <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" >
+        </div>
+        <div class="form-group">
+          <label for="harga">Cara Pembayaran : </label>
+          <input type="text" class="form-control" id="cara_pembayaran" name="cara_pembayaran" placeholder="Masukkan Cara Pembayaran" >
+        </div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary btn-am">Beli</button>
+    </form>
+
+  </div>
+{% endblock content %}

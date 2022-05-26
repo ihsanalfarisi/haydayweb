@@ -1,0 +1,38 @@
+{% extends 'basepeng.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+{% load static %}
+
+{% block content %}
+<title>Upgrade Lumbung</title>
+  <div class="container">
+    <h3>Upgrade Lumbung</h3>
+    <form method="post" action="{% url 'validation' level next_level kapasitas next_kapasitas  %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="jumlah_koin">Level Lumbung: {{level}} => {{next_level}} </label>
+        </div>
+
+        <div class="form-group">
+            <label for="harga">Kapasitas Lumbung : {{kapasitas}} => {{next_kapasitas}} </label>
+        </div>
+        <div class="form-group">
+          <label for="harga">Biaya Upgrade : 200 </label>
+        </div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+        <center>
+        <button type="submit" class="btn btn-primary btn-am">UPGRADE</button>
+        </center>
+    </form>
+
+  </div>
+{% endblock content %}

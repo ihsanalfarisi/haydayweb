@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'home',
     #hijau
     'paket_koin',
-    'transaksi_pembelian_koin',
     'transaksi_upgrade_lumbung',
     'histori_tanaman',
 

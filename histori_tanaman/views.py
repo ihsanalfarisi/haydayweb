@@ -29,3 +29,12 @@ def read(request):
         response = {'hasil': hasil,}
 
         return render(request, 'histori_tanaman_peng.html', response)
+
+def create_produksi(request):
+    if request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("select a.nama from koleksi_aset_memiliki_aset kama, koleksi_aset ka, aset a where kama.id_koleksi_aset = ka.email and kama.id_aset = a.id and a.id like 'bt%' and ka.email = '{}';".format(request.session.get('email')))
+            hasil = tuplefetchall(c)
+        response = {'hasil': hasil}
+        return render(request, 'create_produksi_tanaman.html', response)

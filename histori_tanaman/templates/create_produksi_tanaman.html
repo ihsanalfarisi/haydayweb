@@ -1,0 +1,40 @@
+{% extends 'basepeng.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+{% load static %}
+
+{% block content %}
+<title>Produksi Tanaman</title>
+  <div class="container">
+    <h3>Form Produksi Tanaman</h3>
+    <form method="post" action="{% url 'validate' paket_koin harga %}">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="harga">Harga : {{harga}}</label>
+            <input type="text" class="form-control" id="harga" name="harga" placeholder="-" disabled>
+        </div>
+        <div class="form-group">
+          <label for="harga">Jumlah : </label>
+          <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
+        </div>
+        <div class="form-group">
+          <label for="harga">XP: </label>
+          <input type="text" class="form-control" id="cara_pembayaran" name="cara_pembayaran" placeholder="-" disabled>
+        </div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary btn-am">Beli</button>
+    </form>
+
+  </div>
+{% endblock content %}

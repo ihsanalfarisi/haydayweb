@@ -23,7 +23,6 @@ urlpatterns = [
     path('', include('home.urls')),
     #hijau
     path('paket-koin/', include('paket_koin.urls')),
-    path('transaksi-pembelian-koin/', include('transaksi_pembelian_koin.urls')),
     path('transaksi-upgrade-lumbung/', include('transaksi_upgrade_lumbung.urls')),
     path('histori-tanaman/', include('histori_tanaman.urls')),
     #oren

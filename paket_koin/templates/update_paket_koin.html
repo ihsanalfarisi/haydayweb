@@ -9,14 +9,14 @@
 {% load static %}
 
 {% block content %}
-<title>Buat Paket Koin</title>
+<title>Ubah Paket Koin</title>
   <div class="container">
-    <h3>Form Buat Paket Koin</h3>
-    <form method="post" action="/paket-koin/paket_koin/validation">
+    <h3>Form Ubah Paket Koin</h3>
+    <form method="post" action="{% url 'updatevalidate' paket_koin %}">
         {% csrf_token %}
         <div class="form-group">
-            <label for="jumlah_koin">Jumlah Koin : </label>
-            <input type="text" class="form-control" id="jumlah_koin" name="jumlah_koin" placeholder="Masukkan Jumlah Koin" >
+            <label for="jumlah_koin">Jumlah Koin: {{paket_koin}}</label>
+            <input type="text" class="form-control" id="paket_koin" name="paket_koin" placeholder="-" disabled>
         </div>
 
         <div class="form-group">
@@ -29,7 +29,7 @@
         </div>
         {% endif %}
 
-        <button type="submit" class="btn btn-primary btn-am">Submit</button>
+        <button type="submit" class="btn btn-primary btn-am">Update</button>
     </form>
 
   </div>
