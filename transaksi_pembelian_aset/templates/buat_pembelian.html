@@ -1,0 +1,88 @@
+{% load static %}
+
+{% block meta %}
+<title>Beli</title>
+{% endblock meta %}
+
+{% block content %}
+{% if role == 'admin' %}
+{% include 'base.html' %}
+{% elif role == 'pengguna' %}
+{% include 'basepeng.html' %}
+{% else %}
+{% include 'basedefault.html' %}
+{% endif %}
+<style>
+    .hero-container {
+        width: 100%;
+        align-items: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        
+    }
+    html {
+        background-color: #CFE4EC;
+;
+    }
+    button {
+        width: 462px;
+        height: 50px;
+        left: 200px;
+        top: 200px;
+
+        background: #4276B7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 70px;
+        border-style: none;
+    }
+
+    button h1 {
+        color: white;
+    }
+
+    form {
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="hero-container">
+    <div class="form-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="selectAset">Detail Aset</label>
+                <select name='id' class="form-select" id="selectId">
+                  <option value="">--Select--</option>
+                  {% for aset in hasil %}
+                    <option value="{{ aset.idf }}"> 
+                        {% if aset.id == "b" %}
+                        Bibit Tanaman -
+                        {% elif aset.id == "p" %}
+                        Petak Sawah -
+                        {% elif aset.id == "h" %}
+                        Hewan -
+                        {% elif aset.id == "k" %}
+                        Kandang -   
+                        {% elif aset.id == "d" %}
+                        Dekorasi -
+                        {% elif aset.id == "a" %}
+                        Alat Produksi -
+                        {% else %}
+                        <td>{{ aset.id }}</td>
+                        {% endif %}
+                        {{ aset.nama }} - {{ aset.harga_beli }} </option>
+                  {% endfor %}
+                </select>
+            </div>
+              <div class="mb-3">
+                <label class="form-label">Jumlah</label>
+                <input type="text" class="form-control" name="jumlah">
+              </div>
+              <button type="submit" class="btn btn-primary">BELI</button>
+        </form>
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock content %}

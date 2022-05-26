@@ -1,6 +1,3 @@
-{% extends 'base.html' %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +9,13 @@
     <title>Transaksi Pembelian Aset</title>
   </head>
   <body>
+    {% if role == 'admin' %}
+    {% include 'base.html' %}
+    {% elif role == 'pengguna' %}
+    {% include 'basepeng.html' %}
+    {% else %}
+    {% include 'basedefault.html' %}
+    {% endif %}
     <div class="container"  style="padding: 50px">
       <div class="row">
         <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
@@ -36,7 +40,21 @@
             <td> {{ aset.email }} </td>
             {% endif %}
             <td> {{ aset.waktu }} </td>
-            <td> {{ aset.jenis }} </td>
+            {% if aset.id == "b" %}
+            <td>Bibit Tanaman</td>
+            {% elif aset.id == "p" %}
+            <td>Petak Sawah</td> 
+            {% elif aset.id == "h" %}
+            <td>Hewan</td>
+            {% elif aset.id == "k" %}
+            <td>Kandang</td>       
+            {% elif aset.id == "d" %}
+            <td>Dekorasi</td> 
+            {% elif aset.id == "a" %}
+            <td>Alat Produksi</td>   
+            {% else %}
+            <td>{{ aset.id }}</td>
+            {% endif %}
             <td> {{ aset.nama }} </td>
             <td> {{ aset.jumlah }} </td>
             <td> {{ aset.total_harga }} </td>
