@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from urllib import response
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.db import connection
 from collections import namedtuple
+
+import datetime
 
 def tuplefetchall(cursor):
     "Return all rows from a cursor as a namedtuple"
@@ -40,26 +43,42 @@ def create_produksi(request):
         return render(request, 'create_produksi_tanaman.html', response)
 
 def create_validation_produksi_tanaman(request):
-    data_paket = {
-        "jumlah_koin" : request.POST.get("jumlah_koin"),
-        "harga" : request.POST.get("harga")
-    }
+    if request.session.get('role') == "pengguna":
+        data_produksi = {
+            "bibit" : request.POST.get("bibitTanaman"),
+            "jumlah" : request.POST.get("jumlah"),
+            "xp" : 5,
+            "waktu" : datetime.datetime.now()
+        }
+        
+        with connection.cursor() as c:
+                c.execute("set search_path to hiday")
+                c.execute("select a.nama from koleksi_aset_memiliki_aset kama, koleksi_aset ka, aset a where kama.id_koleksi_aset = ka.email and kama.id_aset = a.id and a.id like 'bt%' and ka.email = '{}';".format(request.session.get('email')))
+                hasil = tuplefetchall(c)
 
-    with connection.cursor() as c:
-        c.execute("set search_path to hiday")
-        c.execute("""
-        select jumlah_koin from paket_koin
-        """)
-        hasil = tuplefetchall(c)
-        if len(data_paket['jumlah_koin'])==0:
-            return render(request, 'create_paket_koin.html', {'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"});
-        if len(data_paket['harga'])==0:
-            return render(request, 'create_paket_koin.html', {'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"});
-        for data in hasil :
-            if str(data.jumlah_koin) == data_paket['jumlah_koin'] :
-                return render(request, 'create_paket_koin.html', {'message' : "Data yang kamu masukkan sudah terdaftar di Database. Harap masukkan data lain"});
-        jumlah_koinn= int(data_paket['jumlah_koin'])
-        hargaa= int(data_paket['harga'])
-        c.execute("insert into paket_koin values ('{}', '{}')".format(jumlah_koinn,hargaa))
-    
-        return redirect('/paket-koin/paket_koin/read')
+        with connection.cursor() as c:
+            if len(data_produksi['bibit'])==0:
+                response = {'hasil' : hasil, 'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"}
+                return render(request, 'create_produksi_tanaman.html', response);
+            if len(data_produksi['jumlah'])==0:
+                response = {'hasil' : hasil, 'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"}
+                return render(request, 'create_produksi_tanaman.html', response);
+            bibitt= data_produksi['bibit']
+            jumlahh= int(data_produksi['jumlah'])
+            data_produksi['xp'] = int(data_produksi['xp']) * jumlahh
+            waktuu = data_produksi['waktu']
+            xpp = int(data_produksi['xp'])
+            c.execute("set search_path to hiday")
+            c.execute("select kama.jumlah from koleksi_aset_memiliki_aset kama, aset a where kama.id_aset = a.id and kama.id_koleksi_aset = '{}' and a.nama = '{}';".format(request.session.get('email'), bibitt))
+            hasil1 = tuplefetchall(c)
+            for data in hasil1 :
+                if int(data.jumlah) < jumlahh :
+                    response = {'hasil' : hasil, 'message' : "Anda tidak memiliki bibit yang cukup, silahkan membeli bibit terlebih dahulu"}
+                    return render(request, 'create_produksi_tanaman.html', response);
+            c.execute("select id from aset where nama = '{}'".format(bibitt))
+            hasilid = tuplefetchall(c)
+            c.execute("insert into histori_produksi values ('{}', '{}', '{}', '{}', '{}')".format(request.session.get('email'), waktuu, waktuu,jumlahh,xpp))
+
+            c.execute("insert into histori_tanaman values ('{}', '{}', '{}')".format(request.session.get('email'), waktuu, hasilid[0].id))
+            
+            return redirect('/histori-tanaman')
