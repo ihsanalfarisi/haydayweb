@@ -32,11 +32,11 @@
             <td> {{ i.durasi }} </td>
             <td> {{ i.jumlah_unit_hasil }} </td>
             <td> 
-                <a href="{% url 'detail_produksi i.'}">[Detail]</a> 
+                <a href="">[Detail]</a> 
                 <br>
-                <a href="{% url 'detail_produksi i.'}">[Update]</a> 
+                <a href="">[Update]</a> 
                 <br>
-                <a href="{% url 'detail_produksi i.'}">[Delete]</a> 
+                <a href="{% url 'delete' i.id_alat_produksi %}">[Delete]</a> 
             </td>
           </tr>
           {% endfor %}
