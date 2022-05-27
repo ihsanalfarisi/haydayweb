@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 # Create your views here.
 from django.db import connection
@@ -50,11 +51,15 @@ def create(request):
         email = request.session.get('email')
         print(id)
 
-        beli_aset = f"insert into hiday.transaksi_pembelian values ('{email}', '{datetime.datetime.now()}', {jumlah}, '{id}')"
-        cursor.execute(beli_aset)
-        cursor.close()
-    
-        return redirect('transaksi_pembelian_aset')
+        if (jumlah == '' or id == '' or email == ''):
+                messages.error(request,"Data belum lengkap, silakan lengkapi data terlebih dahulu.")
+
+        else:  
+            beli_aset = f"insert into hiday.transaksi_pembelian values ('{email}', '{datetime.datetime.now()}', {jumlah}, '{id}')"
+            cursor.execute(beli_aset)
+            cursor.close()
+        
+            return redirect('transaksi_pembelian_aset')
 
     with connection.cursor() as c:
         c.execute("set search_path to hiday")

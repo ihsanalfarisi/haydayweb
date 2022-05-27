@@ -83,6 +83,17 @@
                     <label class="form-label">Jumlah</label>
                     <input type="text" class="form-control" name="jumlah">
                 </div>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% if messages %}
+                {% for message in messages %}
+                {% endfor %}
+                {% endif %}
+                {% endif %}
                 <button type="submit" class="btn btn-primary">BELI</button>
             </form>
         </div>

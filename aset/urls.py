@@ -27,4 +27,11 @@ urlpatterns = [
     path('update-hewan/<str:id>', views.update_hewan, name='update_hewan'),
     path('update-alat/<str:id>', views.update_alat, name='update_alat'),
     path('update-petak/<str:id>', views.update_petak, name='update_petak'),
+
+    path('delete-dekorasi/<str:id>', views.delete_dekorasi, name='delete_dekorasi'),
+    path('delete-bibit/<str:id>', views.delete_bibit, name='delete_bibit'),
+    path('delete-kandang/<str:id>', views.delete_kandang, name='delete_kandang'),
+    path('delete-hewan/<str:id>', views.delete_hewan, name='delete_hewan'),
+    path('delete-alat/<str:id>', views.delete_alat, name='delete_alat'),
+    path('delete-petak/<str:id>', views.delete_petak, name='delete_petak'),
 ]

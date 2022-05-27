@@ -48,9 +48,11 @@
                   <a href="{% url 'update_dekorasi' aset.id_aset %}">
                     [Update]
                   </a>
-                  <a href="#">
+                  {% if aset.delete_ == 'y' %}
+                  <a href="{% url 'delete_dekorasi' aset.id_aset %}">
                     [Delete]
                   </a>
+                  {% endif %}
                 </div>
               </div>
             </td>
