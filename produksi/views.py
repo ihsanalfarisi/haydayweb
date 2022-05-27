@@ -60,3 +60,11 @@ def detailprod(request):
     response = {'hasildetail': hasildetail, }
 
     return render(request, 'detail_produksi.html', response)
+
+
+def delete_produksi(request, produksi):
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("delete from produksi where id_alat_produksi = '{}'".format(produksi))
+    
+    return redirect('/produksi/produksi-admin')
