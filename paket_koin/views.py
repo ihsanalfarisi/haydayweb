@@ -109,7 +109,7 @@ def create_validation_transaksi(request, paket_koin):
         c.execute("select harga from paket_koin where jumlah_koin = '{}'".format(paket_koin))
         hasil = tuplefetchall(c)
 
-      
+    data_transaksi['harga'] = hasil[0].harga
 
     if len(data_transaksi['jumlah'])==0:
         data_transaksi['message'] =  "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"
@@ -121,7 +121,6 @@ def create_validation_transaksi(request, paket_koin):
         return render(request, 'create_transaksi_pembelian_koin.html', data_transaksi);
 
     data_transaksi['jumlah'] = int(data_transaksi['jumlah'])
-    data_transaksi['harga'] = hasil[0].harga
     data_transaksi['total_biaya'] = int(data_transaksi['harga']) * data_transaksi['jumlah']  
 
     with connection.cursor() as c:
