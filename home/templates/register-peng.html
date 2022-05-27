@@ -42,7 +42,7 @@
 </style>
 <div class="row">
     <div class="my-auto d-flex justify-content-center mt-5" style="width:2000px;">
-        <h1>Login</h1>
+        <h1>Register Pengguna</h1>
     </div>
     <div class="hero-container">
         <div class="form-container">
@@ -56,6 +56,10 @@
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Area Pertanian</label>
+                    <input type="text" class="form-control" name="nama_area">
+                </div>
                 {% if messages %}
                 {% for message in messages %}
                 <div class="alert alert-danger" role="alert">
@@ -68,12 +72,12 @@
                 {% endif %}
                 {% endif %}
                 <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </form>
             <div class="mb-3">
-                <a href='/register'>
-                    <button class="btn btn-outline-secondary">Belum punya akun? Registrasi sekarang</button>
+                <a href='/login'>
+                    <button class="btn btn-outline-secondary">Sudah punya akun? Masuk sekarang</button>
                 </a>
             </div>
         </div>

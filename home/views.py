@@ -2,10 +2,10 @@ from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.db import connection
 from collections import namedtuple
+from django.contrib import messages
 
 from .forms import *
 from django.template.defaulttags import register
-
 
 # Create your views here.
 
@@ -46,28 +46,33 @@ def login(request):
         email = login['email']
         passw = login['pass']
 
-        admin = f"select email from hiday.admin where email='{email}' and password='{passw}'"
-        cursor.execute(admin)
-        result_admin = cursor.fetchall()
-        
-        pengguna = f"select email from hiday.pengguna where email='{email}' and password='{passw}'"
-        cursor.execute(pengguna)
-        result_pengguna = cursor.fetchall()
-        
-        if (len(result_admin) != 0):
-            print(email)
-            request.session.modified = True
-            request.session['email'] = email
-            request.session['role'] = 'admin'
-            return redirect('home')
+        if (email == '' or passw == ''):
+            messages.error(request,"Data belum lengkap, silakan lengkapi data terlebih dahulu.")
+
+        else:    
+            admin = f"select email from hiday.admin where email='{email}' and password='{passw}'"
+            cursor.execute(admin)
+            result_admin = cursor.fetchall()
             
-        elif (len(result_pengguna) != 0):
-            request.session.modified = True
-            request.session['email'] = email
-            request.session['role'] = 'pengguna'
-            return redirect('home')
-        else:
-            print("login gagal")
+            pengguna = f"select email from hiday.pengguna where email='{email}' and password='{passw}'"
+            cursor.execute(pengguna)
+            result_pengguna = cursor.fetchall()
+            
+            if (len(result_admin) != 0):
+                print(email)
+                request.session.modified = True
+                request.session['email'] = email
+                request.session['role'] = 'admin'
+                return redirect('home')
+                
+            elif (len(result_pengguna) != 0):
+                request.session.modified = True
+                request.session['email'] = email
+                request.session['role'] = 'pengguna'
+                return redirect('home')
+            else:
+                messages.error(request,"Email/Password invalid.")
+                print("login gagal")
 
     return render(request, 'login.html')
 
@@ -96,31 +101,75 @@ def pengguna_index(request):
     return render(request, 'index.html', response)
 
 def register(request):
+    return render(request, 'register.html')
+
+def register_admin(request):
     if(request.method == "POST"):
         print("masuk")
         register = request.POST
         cursor = connection.cursor()
         email = register['email']
-
-        akun = f"insert into hiday.akun values ('{email}')"
-        cursor.execute(akun)
-        cursor.close()
+        passw = register['pass']
         
+        if (email == '' or passw == ''):
+            messages.error(request,"Data belum lengkap, silakan lengkapi data terlebih dahulu.")
+
+        else:
+            valid = f"select email from hiday.akun where email = '{email}'"
+            cursor.execute(valid)
+            cek = cursor.fetchall()
+            if cek == []:
+                akun = f"insert into hiday.akun values ('{email}')"
+                cursor.execute(akun)
+
+                pengguna = f"insert into hiday.admin values ('{email}', '{passw}')"
+                cursor.execute(pengguna)
+                cursor.close()
+
+                request.session.modified = True
+                request.session['email'] = email
+                request.session['role'] = 'admin'
+            
+                return redirect('home')
+            else:
+                messages.error(request,"Email sudah terdaftar.")
+
+    return render(request, 'register-admin.html')
+
+def register_peng(request):
+    if(request.method == "POST"):
+        print("masuk")
+        register = request.POST
         cursor = connection.cursor()
+        email = register['email']
         passw = register['pass']
         nama_area = register['nama_area']
+        
+        if (email == '' or passw == ''):
+            messages.error(request,"Data belum lengkap, silakan lengkapi data terlebih dahulu.")
 
-        pengguna = f"insert into hiday.pengguna values ('{email}', '{passw}', '{nama_area}')"
-        cursor.execute(pengguna)
-        cursor.close()
+        else:
+            valid = f"select email from hiday.akun where email = '{email}'"
+            cursor.execute(valid)
+            cek = cursor.fetchall()
+            if cek == []:
+                akun = f"insert into hiday.akun values ('{email}')"
+                cursor.execute(akun)
 
-        request.session.modified = True
-        request.session['email'] = email
-        request.session['role'] = 'pengguna'
-    
-        return redirect('home')
+                pengguna = f"insert into hiday.pengguna values ('{email}', '{passw}', '{nama_area}')"
+                cursor.execute(pengguna)
+                cursor.close()
 
-    return render(request, 'register.html')
+                request.session.modified = True
+                request.session['email'] = email
+                request.session['role'] = 'pengguna'
+            
+                return redirect('home')
+            else:
+                messages.error(request,"Email sudah terdaftar.")
+
+
+    return render(request, 'register-peng.html')
 
 def logout(request):
     request.session.clear()
