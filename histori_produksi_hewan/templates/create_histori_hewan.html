@@ -1,5 +1,4 @@
-<!-- {% extends 'base.html' %}
-
+{% extends 'basepeng.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,112 +6,37 @@
 {% load static %}
 
 {% block content %}
-  <head>
-    <meta charset="UTF-8" />
-    <title>Histori Produksi Hewan</title>
-  </head>
-  <body>
-        <center>
-              <h1>FORM PRODUKSI HEWAN</h1>
-        </center>
-        <br/>
-        <br/>
-            <div class="container">
-            {% if form.errors %}
-                  {% for field in form %}
-                        {% for error in field.errors %}
-                              <div class="alert alert-danger">
-                                    <strong>{{ error|escape }}</strong>
-                              </div>
-                  {% endfor %}
-                  {% endfor %}
-                  {% for error in form.non_field_errors %}
-                  <div class="alert alert-danger">
-                        <strong>{{ error|escape }}</strong>
-                  </div>
-                  {% endfor %}
-            {% endif %}
-                  <form method="POST">
-                  {% csrf_token %}  
-                  <table style="margin:20px auto;">
-                  <tr>
-                        <td>ID_Hewan</td>
-                        <td>
-                        <input type="number" name="npm" value=""></td>
-                  </tr>
-                  <tr>
-                        <td>Nama</td>
-                        <td>
-                        <input type="text" name="nama" value=""></td>
-                  </tr>
-                  <tr>
-                        <td>Tanggal lahir</td>
-                        <td>
-                        <input type="date" name="tgl_lahir" value=""></td>
-                  </tr>
-                  <tr>
-                        <td>Alamat</td>
-                        <td>
-                        <input type="text" name="alamat" value=""></td>
-                  </tr>
-                        <td></td>
-                        <td><input type="button" onclick = "window.history.back()" value="kembali"></td>
-                        <td><input type="submit" value="Simpan"></td>
-      
-                  </tr>
-                  </table>
-            </form>	
-            </div>
-
-  
-  </body>
-</html>
-{% endblock content %}
- -->
-
- {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'styles.css' %}">
-  <title>Form Produksi Hewan</title>
-</head>
-<body>
-  <h2>Form Produksi Hewan</h2><br><br>
-
-  <form method="POST">
-    {% csrf_token %}
-    <div>
-        <label for="id_hewan">ID Hewan: </label>
-        <select required name="id_hewan" id="id_hewan">
-            {% for histori_hewan in %}
-            <option value="{{ histori_hewan.id_hewan }}">{{ histori_hewan.id_hewan }}</option>
+<title>Produksi Hewan</title>
+  <div class="container">
+    <h3>Form Produksi Hewan</h3>
+    <form method="post" action="{% url 'validate' %}">
+        {% csrf_token %}
+        
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="selectHewan">ID_Hewan: </label>
+          <select name='namaHewan' class="form-select" id="selectHewan">
+            <option value="">--Select--</option>
+            {% for hewan in hasil %}
+              <option value="{{ hewan.nama }}"> {{hewan.nama}} </option>
             {% endfor %}
-        </select>
-    </div>
-
-    <div>
-        <label for="jumlah">Jumlah: </label>
-        <input required name="integer" id="jumlah">
-        </select>
-    </div>
-
-    <div>
-        <label for="xp">XP: </label>
-        <input type="integer" required name="xp" id="xp" disabled>
-        </select>
-    </div>
-
-    
-    <div class="row center">
-        <input type="PRODUKSI" class="btn btn-primary">
-    </div>
-</form>
-
-
-</body>
-      {% include 'footer.html' %}
-</html>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="jumlah">Jumlah : </label>
+          <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
+        </div>
+        <div class="form-group">
+          <label for="xp">XP: 5 </label>
+          <input type="text" class="form-control" id="xp" name="xp" placeholder="-" disabled>
+        </div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+        <br>
+        <center><button type="submit" class="btn btn-primary btn-am">PRODUKSI</button></center>
+    </form>
+    {% include 'footer.html' %}
+  </div>
+{% endblock content %}

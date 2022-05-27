@@ -16,7 +16,7 @@
 
 <form name="form1" action="" method="post" onsubmit="return checkSubmit()">
 
-    <label for="id">ID Pesanan:</label>
+    <label for="id">ID Pesanan: {{ id }}</label>
     <input type="text" id="idPesanan" name="idPesanan" disabled><br>
 
     <label for="nama">Nama Pesanan:</label>
@@ -28,12 +28,15 @@
     {% csrf_token %}
     <label for="detailPesanan">Detail Pesanan</label>
     <select id="detailPesanan" name="detailPesanan" onchange="myFunction(event)">
-        <option value="-">Pilih Detail Pesanan</option>
-        {% for i in daftarPesanan %}
-            <option value="{{ i.nama }} {{ i.max }}" required>{{ i.nama }}</option>
+        <option value="">--Select--</option>
+        {% for pesanan in hasil %}
+            <option value="{{ pesanan.nama }} {{ pesanan.jumlah_unit_hasil }}" required>{{ pesanan.nama }} - {{ pesanan.jumlah_unit_hasil }}</option>
         {% endfor %}
     </select>
     <br><br>
     <center><input type="submit" value="BUAT"></center>
 </form>
+{% include 'footer.html' %}
+
 {% endblock content %}
+
