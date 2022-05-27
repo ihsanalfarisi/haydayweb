@@ -1,0 +1,46 @@
+{% extends 'basepeng.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+{% block content %}
+<head>
+  <meta charset="UTF-8" />
+  <title>Histori Produksi Hewan</title>
+</head>
+<body>
+ <div class="row">
+       <h1>DETAIL PESANAN</h1>
+     <div class="hero-container">
+      <form method="POST">
+            <div class="form-container">
+                  <h5>ID Pesanan: {{ id }}</h5>
+                  <h5>Nama Pesanan: {{ nama }}</h5>
+                  <h5>Jenis Pesanan: {{ jenis }}</h5>
+                  <h5>Status Pesanan: {{ status }}</h5>
+                  <br>
+                  <h5>Detail Pesanan:</h5><br>
+                  <table class="table">
+                        <tr>
+                              <th>Nama Produksi</th>
+                              <th>Jumlah Produksi</th>
+                              <th>Subtotal</th>
+                        </tr>
+                        {% for pesanan in hasil %}
+                        <tr>
+                              <td>{{ pesanan.nama }}</td>
+                              <td>{{ pesanan.jumlah }}</td>
+                              <td>{{ pesanan.subtotal }}</td>
+                        </tr>
+                        {% endfor %}
+                  </table><br>
+                  <h5>Total Koin: {{ total }}</h5>
+            </div>
+            <button type="submit" class="btn btn-primary">AMBIL</button>
+      </form>
+     </div>
+ </div>
+ {% include 'footer.html' %}
+</html>
+{% endblock content %}

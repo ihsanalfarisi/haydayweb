@@ -1,39 +1,41 @@
 {% extends 'base.html' %}
 
-
 <!DOCTYPE html>
 <html lang="en">
+      {% load static %}
 
-{% load static %}
-
-{% block content %}
-  <head>
-    <meta charset="UTF-8" />
-    <title>Histori Penjualan</title>
-  </head>
-  <body>
-    <div class="container"  style="padding: 50px">
+      {% block meta %}
+      <title>Detail Pesanan</title>
       <div class="row">
-        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
-          <h1>List Histori Penjualan</h1>
-        </div>
-        <table class="table">
-          <tr>
-            <th>Subtotal</th>
-            <th>Jumlah Produksi</th>
-          </tr>
-          {% for detail_pesanan in hasil %}
-          <tr>
-            <td> {{ detail_pesanan.subtotal }} </td>
-            <td> {{ detail_pesanan.jumlah }} </td>
-          </tr>
-          {% endfor %}
-          <!-- END SECTION -->
-        </table>
+            <h1>DETAIL PESANAN</h1>
+          <div class="hero-container">
+           <form method="POST">
+                 <div class="form-container">
+                       <h5>ID Pesanan: {{ pesanan.id }}</h5>
+                       <h5>Nama Pesanan: {{ pesanan.nama }}</h5>
+                       <h5>Jenis Pesanan: {{ jenis }}</h5>
+                       <h5>Status Pesanan: {{ status }}</h5>
+                       <br>
+                       <h5>Detail Pesanan:</h5><br>
+                       <table class="table">
+                             <tr>
+                                   <th>Nama Produksi</th>
+                                   <th>Jumlah Produksi</th>
+                                   <th>Subtotal</th>
+                             </tr>
+                             {% for detail_pesanan in hasil %}
+                             <tr>
+                                   <td>{{ detail_pesanan.nama }}</td>
+                                   <td>{{ pesanan.jumlah }}</td>
+                                   <td>{{ pesanan.subtotal }}</td>
+                             </tr>
+                             {% endfor %}
+                       </table><br>
+                       <h5>Total Koin: {{ total }}</h5>
+                 </div>
+           </form>
+          </div>
       </div>
-    </div>
-    {% include 'footer.html' %}
-  </body>
+      {% include 'footer.html' %}
 </html>
 {% endblock content %}
-

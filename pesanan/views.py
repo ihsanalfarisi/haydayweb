@@ -1,3 +1,4 @@
+from urllib import response
 from django.shortcuts import render
 
 # Create your views here.
@@ -32,22 +33,25 @@ def read(request):
         return render(request, 'pesanan_peng.html', response)
 
 def detailpesanan(request):
-    if request.session.get('role') == "admin" or request.session.get('role') == "pengguna":
+    if request.session.get('role') == "admin":
         with connection.cursor() as c:
             c.execute("set search_path to hiday")
-            c.execute("""select * from detail_pesanan;""")
+            c.execute("""select nama, jumlah, subtotal from produk p,
+            detail_pesanan dp where dp.id_pesanan = p.id;""")
             hasil = tuplefetchall(c)
-    
-    if request.session.get('role') == "admin":
-        response = {'hasil': hasil, 'role': 'admin'}
-        return render(request, 'detail_pesanan.html', response)
-    else:
-        response = {'hasil': hasil, 'role': 'pengguna'}
-        return render(request, 'detail_pesanan.html', response)
 
         response = {'hasil': hasil,}
-
         return render(request, 'detail_pesanan.html', response)
+
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select nama, jumlah, subtotal from produk p,
+            detail_pesanan dp where dp.id_pesanan = p.id;""")
+            hasil = tuplefetchall(c)
+
+        response = {'hasil': hasil,}
+        return render(request, 'detail_pesanan_peng.html', response)
 
 def createpesanan(request):
     return render(request, 'create_pesanan.html', {})

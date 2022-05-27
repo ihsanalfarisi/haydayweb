@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'basepeng.html' %}
 
 
 <!DOCTYPE html>
@@ -14,7 +14,6 @@
   <body>
 
 
-    <!-- Create Histori Penjualan-->
     <center><a href="/create_histori_penjualan" class="btn btn-primary">Create Histori Penjualan</a></center>
 
     <div class="container"  style="padding: 50px">
@@ -39,7 +38,11 @@
             <td> {{ histori_penjualan.koin }} </td>
             <td> {{ histori_penjualan.xp }} </td>
             <td>
-                  <a class="btn btn-primary" href="/detail-pesanan/" role="button">Detail</a>
+              <div class="mb-3">
+                <a href='detail-pesanan'>
+                      <button class="btn btn-outline-secondary">Detail</button>
+                </a>
+          </div>
             </td>
           </tr>
           {% endfor %}

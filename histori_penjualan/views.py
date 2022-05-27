@@ -31,12 +31,23 @@ def read(request):
 
         return render(request, 'histori_penjualan_peng.html', response)
 
-def detail_pesanan(request):
-      with connection.cursor() as c:
+def detailpesanan(request):
+    if request.session.get('role') == "admin":
+        with connection.cursor() as c:
             c.execute("set search_path to hiday")
-            c.execute("""select * from detail_pesanan;""")
+            c.execute("""select nama, jumlah, subtotal from produk p,
+            detail_pesanan dp where dp.id_pesanan = p.id;""")
             hasil = tuplefetchall(c)
 
-      response = {'hasil': hasil,}
+        response = {'hasil': hasil,}
+        return render(request, 'detail_pesanan.html', response)
 
-      return render(request, 'detail_pesanan.html', response)
+    elif request.session.get('role') == "pengguna":
+        with connection.cursor() as c:
+            c.execute("set search_path to hiday")
+            c.execute("""select nama, jumlah, subtotal from produk p,
+            detail_pesanan dp where dp.id_pesanan = p.id;""")
+            hasil = tuplefetchall(c)
+
+        response = {'hasil': hasil,}
+        return render(request, 'detail_pesanan_peng.html', response)
