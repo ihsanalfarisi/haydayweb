@@ -55,16 +55,8 @@ def create_makanan(request):
     if request.session.get('role') == "pengguna":
         with connection.cursor() as c:
             c.execute("set search_path to hiday")
-            c.execute("""select hpm.email, hpm.waktu_awal, hp.waktu_selesai, hpm.id_produk_makanan, 
-                        hp.jumlah, hp.xp, pk.nama as pnama, a.nama as anama
-                        from histori_produksi_makanan as hpm
-                        join histori_produksi as hp
-                        on hpm.email = hp.email
-                        join produk as pk
-                        on hpm.id_produk_makanan = pk.id
-                        join aset as a
-                        on hpm.id_alat_produksi = a.id
-                        where hpm.email = '{}';""".format(request.session.get('email')))
+            c.execute("""select nama from produk, produk_makanan 
+            where id = id_produk""")
             hasilcreate = tuplefetchall(c)
         response = {'hasilcreate': hasilcreate}
         return render(request, 'create_produksi_makanan.html', response)
@@ -73,25 +65,32 @@ def create_makanan(request):
 def apply_create_makanan(request):
     if request.session.get('role') == "pengguna":
         data_produksi = {
-            "pnama" : request.POST.get("prod_makan"),
+            "prod_makan" : request.POST.get("prod_makan"),
             "jumlah" : request.POST.get("jumlah"),
             "xp" : 5,
             "waktu" : datetime.datetime.now()
         }
-        
+
+        pr_makan= data_produksi['prod_makan']
         with connection.cursor() as c:
                 c.execute("set search_path to hiday")
                 c.execute("select a.nama from koleksi_aset_memiliki_aset kama, koleksi_aset ka, aset a where kama.id_koleksi_aset = ka.email and kama.id_aset = a.id and a.id like 'bt%' and ka.email = '{}';".format(request.session.get('email')))
                 hasil = tuplefetchall(c)
 
+        
         with connection.cursor() as c:
-            if len(data_produksi['pnama'])==0:
+                c.execute("set search_path to hiday")
+                c.execute ("select jumlah from lumbung_memiliki_produk lmp, produk p where lmp.id_lumbung = '{}' and lmp.id_produk = p.id and p.nama = '{}';".format(request.session.get('email'), pr_makan))
+                jmlpeng = tuplefetchall(c)
+
+
+        with connection.cursor() as c:
+            if len(data_produksi['prod_makan'])==0:
                 response = {'hasil' : hasil, 'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"}
                 return render(request, 'create_produksi_makanan.html', response);
             if len(data_produksi['jumlah'])==0:
                 response = {'hasil' : hasil, 'message' : "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu"}
                 return render(request, 'create_produksi_makanan.html', response);
-            pr_makan= data_produksi['pnama']
             jumlahh= int(data_produksi['jumlah'])
             data_produksi['xp'] = int(data_produksi['xp']) * jumlahh
             waktuu = data_produksi['waktu']
@@ -105,8 +104,8 @@ def apply_create_makanan(request):
                     return render(request, 'create_produksi_makanan.html', response);
             c.execute("select id from aset where nama = '{}'".format(pr_makan))
             hasilid = tuplefetchall(c)
-            c.execute("insert into histori_produksi values ('{}', '{}', '{}', '{}', '{}')".format(request.session.get('email'), waktuu, waktuu,jumlahh,xpp))
+            c.execute("insert into histori_produksi values ('{}', '{}', '{}', '{}', '{}')".format(request.session.get('email'), waktuu, waktuu, jumlahh, xpp))
 
-            c.execute("insert into histori_produksi_makanan values ('{}', '{}', '{}', '{}')".format(request.session.get('email'), waktuu, hasilid[0].id))
+            c.execute("insert into histori_produksi_makanan values ('{}', '{}', '{}', '{}')".format(request.session.get('email'), waktuu, hasilid[0].id, hasilid[0].id))
             
             return redirect('histori_produksi_makanan')
