@@ -1,7 +1,7 @@
 {% load static %}
 
 {% block meta %}
-<title>Buat</title>
+<title>Update</title>
 {% endblock meta %}
 
 {% block content %}
@@ -50,28 +50,27 @@
     <div class="mb-5"></div>
     <div class="d-flex justify-content-center mb-5" style="width:1900px;">
     {% if jenis == "d" %}
-      <h1>Form Buat Aset Dekorasi</h1>
+      <h1>Form Update Aset Dekorasi</h1>
     {% elif jenis == "bt" %}
-        <h1>Form Buat Aset Bibit Tanaman</h1>
+        <h1>Form Update Aset Bibit Tanaman</h1>
     {% elif jenis == "k" %}
-        <h1>Form Buat Aset Kandang</h1>
+        <h1>Form Update Aset Kandang</h1>
     {% elif jenis == "h" %}
-        <h1>Form Buat Aset Hewan</h1>
+        <h1>Form Update Aset Hewan</h1>
     {% elif jenis == "ap" %}
-        <h1>Form Buat Aset Alat Produksi</h1>
+        <h1>Form Update Aset Alat Produksi</h1>
     {% elif jenis == "ps" %}
-        <h1>Form Buat Aset Petak Sawah</h1>
+        <h1>Form Update Aset Petak Sawah</h1>
     {% endif %}
     </div>
     <div class="hero-container">
         <div class="form-container">
-            <h5>ID: {{ id }}</h5>
+            {% for aset in hasil %}            
+            <h5>ID: {{ aset.id }}</h5>
+            <div class="mb-3"></div>
+            <h5>Nama: {{ aset.nama }}</h5>
             <form method="POST">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" name="nama">
-                </div>
                 <div class="mb-3">
                     <label class="form-label">Minimum Level</label>
                     <input type="number" class="form-control" name="minimum_level">
@@ -89,13 +88,14 @@
                         <input type="text" class="form-control" name="unik" placeholder='Format = 00:00:00'>
                     {% elif jenis == "k" %}
                         <label class="form-label">Kapasitas Maks</label>
-                        <input type="number" class="form-control" name="unik1">
+                        <input type="number" class="form-control" name="unik">
                         <div class="mb-3"></div>
-                        <label class="form-label">Jenis Hewan</label>
-                        <input type="text" class="form-control" name="unik2">
+                        <h5>Jenis Hewan: {{ aset.jenis_hewan }}</h5>
                     {% elif jenis == "h" %}
                         <label class="form-label">Durasi Produksi</label>
                         <input type="text" class="form-control" name="unik" placeholder='Format = 00:00:00'>
+                        <div class="mb-3"></div>
+                        <h5>ID Kandang: {{ aset.id_kandang }}</h5>
                     {% elif jenis == "ap" %}
                         <label class="form-label">Kapasitas Maks</label>
                         <input type="number" class="form-control" name="unik">
@@ -104,15 +104,27 @@
                             <label class="input-group-text" for="selectAset">Detail Aset</label>
                             <select name='unik' class="form-select" id="selectId">
                             <option value="">--Select--</option>
-                            {% for aset in hasil %}
-                                <option value="{{ aset.nama }}"> {{ aset.nama }} </option>
+                            {% for aset2 in hasil2 %}
+                                <option value="{{ aset2.nama }}"> {{ aset2.nama }} </option>
                             {% endfor %}
                         </select>
                     </div>
                     {% endif %}
                 </div>
-                <button type="submit" class="btn btn-primary">TAMBAHKAN</button>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% if messages %}
+                {% for message in messages %}
+                {% endfor %}
+                {% endif %}
+                {% endif %}    
+                <button type="submit" class="btn btn-primary">SIMPAN</button>
             </form>
+            {% endfor %}
         </div>
     </div>
 </div>

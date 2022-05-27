@@ -20,4 +20,11 @@ urlpatterns = [
     path('buat-hewan', views.buat_hewan, name='buat_hewan'),
     path('buat-alat', views.buat_alat, name='buat_alat'),
     path('buat-petak', views.buat_petak, name='buat_petak'),
+
+    path('update-dekorasi/<str:id>', views.update_dekorasi, name='update_dekorasi'),
+    path('update-bibit/<str:id>', views.update_bibit, name='update_bibit'),
+    path('update-kandang/<str:id>', views.update_kandang, name='update_kandang'),
+    path('update-hewan/<str:id>', views.update_hewan, name='update_hewan'),
+    path('update-alat/<str:id>', views.update_alat, name='update_alat'),
+    path('update-petak/<str:id>', views.update_petak, name='update_petak'),
 ]
