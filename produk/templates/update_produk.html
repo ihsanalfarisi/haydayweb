@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+{% load static %}
+
+{% block content %}
+<title>Ubah Produk</title>
+  <div class="container">
+    <h3>Form Ubah Produk</h3>
+    <form method="post" action="{% url 'validate_produk_makanan' id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="produk">Nama: {{id}}</label>
+            <input type="text" class="form-control" id="produk" name="produk" placeholder="-" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="harga_jual">Harga Jual : </label>
+            <input type="text" class="form-control" id="harga_jual" name="harga_jual" placeholder="Masukkan Harga Jual" >
+        </div>
+
+        <div class="form-group">
+            <label for="sifat_produk">Sifat Produk : </label>
+            <input type="text" class="form-control" id="sifat_produk" name="sifat_produk" placeholder="Masukkan Sifat" >
+        </div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary btn-am">Update</button>
+    </form>
+
+  </div>
+{% endblock content %}

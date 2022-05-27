@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detail Produksi</title>
+  </head>
+  <body>
+    <div class="container"  style="padding: 50px">
+      <div class="row">
+        <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
+          <h1>Detail Produksi</h1>
+        </div>
+        {% for i in hasildetail %}
+        <div>
+            Nama Produk Makanan: {{ i.pnama }}
+            <br>
+            Alat Produksi: {{ i.anama }}
+            <br>
+            Durasi Produksi (dalam menit): {{ i.durasi }}
+            <br>
+            Jumlah Produk yang Dihasilkan: {{ i.jumlah_unit_hasil }}
+            <br>
+            <h2>
+            Daftar Bahan yang Dibutuhkan:
+            </h2>
+            <br>
+        <table>
+            <tr>
+                <th>Bahan</th>
+                <th>Jumlah</th>
+            </tr>
+
+            <tr>
+                <td>...</td>
+                <td>...</td>    
+            </tr>
+            
+        </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}

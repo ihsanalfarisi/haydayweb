@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'basepeng.html' %}
 
 
 <!DOCTYPE html>
@@ -14,6 +14,15 @@
   <body>
     <div class="container"  style="padding: 50px">
       <div class="row">
+        <br>
+        {% for a in detail %}
+        <div>
+          Level: {{ a.level }}
+          <br>
+          Kapasitas: {{ a.total }} / {{ a.kapasitas_maksimal }}
+        </div>
+        {% endfor %}
+        <br>
         <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
           <h1>Lumbung Makanan</h1>
         </div>

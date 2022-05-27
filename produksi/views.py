@@ -43,3 +43,20 @@ def readadmin(request):
     response = {'hasil': hasil,}
 
     return render(request, 'produksi_admin.html', response)
+
+def detailprod(request):
+    with connection.cursor() as c:
+        c.execute("set search_path to hiday")
+        c.execute("""select pksi.id_alat_produksi, pksi.durasi, pksi.jumlah_unit_hasil, pksi.id_produk_makanan, a.id as idaset, a.nama as anama, pk.id as idproduk, pk.nama as pnama
+                    from produksi as pksi 
+                    join produk as pk
+                    on pksi.id_produk_makanan = pk.id
+                    join aset as a
+                    on pksi.id_alat_produksi = a.id
+                    where pksi.jumlah_unit_hasil is not null
+                    and pk.nama = '{}';""".format(request.session.get('pk.nama')))
+        hasildetail = tuplefetchall(c)
+    
+    response = {'hasildetail': hasildetail, }
+
+    return render(request, 'detail_produksi.html', response)

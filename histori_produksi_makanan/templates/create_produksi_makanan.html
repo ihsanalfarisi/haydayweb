@@ -1,0 +1,40 @@
+{% extends 'basepeng.html' %}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+{% block content %}
+<title>Produksi Makanan</title>
+  <div class="container">
+    <h3>Form Produksi Makanan</h3>
+    <form method="post" action="{% url 'apply_makanan'%}">
+        {% csrf_token %}
+        
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="prod_makan">ID Produk Makanan: </label>
+          <select name='prod_makan' class="form-select" id="prod_makan">
+            <option value="">--Select--</option>
+            {% for i in hasilcreate %}
+              <option value="{{ i.pnama }}"> {{i.pnama}} </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="harga">Jumlah : </label>
+          <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
+        </div>
+        <div class="form-group">
+            <label for="xp">XP: 5 </label>
+            <input type="text" class="form-control" id="xp" name="xp" placeholder="-" disabled>
+        </div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary btn-am">Produksi</button>
+    </form>
+
+  </div>
+{% endblock content %}

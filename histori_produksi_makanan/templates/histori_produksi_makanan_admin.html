@@ -1,43 +1,44 @@
-{% extends 'base.html' %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 {% load static %}
 
 {% block content %}
+{% if role == 'admin' %}
+{% include 'base.html' %}
+{% else %}
+{% include 'basedefault.html' %}
+{% endif %}
+
   <head>
     <meta charset="UTF-8" />
-    <title>Produksi</title>
+    <title>Histori Produksi Makanan</title>
   </head>
   <body>
     <div class="container"  style="padding: 50px">
       <div class="row">
         <div class="my-auto d-flex justify-content-center mb-4" style="width:2000px;">
-          <h1>List Produksi</h1>
+          <h1>List Histori Produksi Makanan</h1>
         </div>
         <table class="table">
           <tr>
+            <th>Email Pengguna</th>
+            <th>Waktu Awal</th>
+            <th>Waktu Selesai</th>
+            <th>Jumlah</th>
+            <th>XP</th>
             <th>Produk Makanan</th>
             <th>Alat Produksi</th>
-            <th>Durasi Produk</th>
-            <th>Jumlah Produk Hasil Produksi</th>
-            <th>Action</th>
           </tr>
-          {% for i in hasil %}
+          {% for i in hasiladmin %}
           <tr>
+            <td> {{ i.email }} </td>
+            <td> {{ i.waktu_awal }} </td>
+            <td> {{ i.waktu_selesai }} </td>
+            <td> {{ i.jumlah }} </td>
+            <td> {{ i.xp }} </td>
             <td> {{ i.pnama }} </td>
             <td> {{ i.anama }} </td>
-            <td> {{ i.durasi }} </td>
-            <td> {{ i.jumlah_unit_hasil }} </td>
-            <td> 
-                <a href="{% url 'detail_produksi i.'}">[Detail]</a> 
-                <br>
-                <a href="{% url 'detail_produksi i.'}">[Update]</a> 
-                <br>
-                <a href="{% url 'detail_produksi i.'}">[Delete]</a> 
-            </td>
           </tr>
           {% endfor %}
           <!-- END SECTION -->
